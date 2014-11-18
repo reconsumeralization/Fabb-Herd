@@ -138,22 +138,6 @@ p {
     overflow: visible;
     box-shadow: 0px 6px 15px 4px rgba(0, 0, 0, 0.4);
 }
-@media only screen and (min-device-width: 768px) and (max-device-width: 1024px),
-                       (min-device-width: 540px) and (max-device-width: 960px),
-                       (min-device-width: 375px) and (max-device-width: 667px),
-                       (min-device-width: 320px) and (max-device-width: 568px),
-                       (min-device-width: 320px) and (max-device-width: 480px) {
-    .container {
-        background-size: 120% auto !important;
-        -webkit-background-size: 120% auto !important;
-        -moz-background-size: 120% auto !important;
-        -o-background-size: 120% auto !important;
-        background-attachment: scroll !important;
-    }
-    .is-mobile {
-        z-index: 1;
-    }
-}
 #home-content h1 {
     font-family: walkway_condensed, Arial, sans-serif;
     font-size: 3.5rem;
@@ -405,7 +389,7 @@ p {
 }
 #contact-content {
     background: no-repeat top center #000000;
-    background-image: url(/img/news-bg.jpg);
+    background-image: url(/img/contact-bg.jpg);
     background-size: cover;
     background-attachment: fixed;
     position: relative;
@@ -494,4 +478,64 @@ form .error {
 form .success {
     font-size: 1.2rem;
     color: #036600;
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px),
+                       (min-device-width: 540px) and (max-device-width: 960px),
+                       (min-device-width: 375px) and (max-device-width: 667px),
+                       (min-device-width: 320px) and (max-device-width: 568px),
+                       (min-device-width: 320px) and (max-device-width: 480px) {
+    .container {
+        background-size: 120% auto !important;
+        -webkit-background-size: 120% auto !important;
+        -moz-background-size: 120% auto !important;
+        -o-background-size: 120% auto !important;
+        background-attachment: scroll !important;
+    }
+    .is-mobile {
+        position: relative;
+        z-index: 1;
+    }
+    #cattle-content .cattle-details {
+        width: 40%;
+    }
+    .cattle-info {
+        font-size: 0.8rem;
+    }
+    #cattle-list li .holder {
+        width: 60px;
+        height: 60px;
+        margin-top: 8px;
+    }
+    #cattle-list li .text {
+        font-size: 1.2rem;
+    }
+    #cattle-list li .holder img {
+        width: 100%;
+    }
+    #cattle-list li .holder img.default {
+        margin: 7px 0;
+    }
+    #cattle-list li.active, #cattle-list li.hover {
+        margin-top: 0px;
+    }
+    #cattle-list li.active .holder, #cattle-list li.hover .holder {
+        border: 4px solid #577617;
+        margin: 4px 11px 11px;
+    }
+    .cattle-name {
+        font-size: 1.3rem;
+    }
+    .cattle-images {
+        width: 60%;
+    }
+    .image-view {
+        width: 350px;
+        height: 230px;
+    }
+}
+@media only screen and (orientation: portrait) {
+    #header a {
+        font-size: 1.2rem;
+    }
 }

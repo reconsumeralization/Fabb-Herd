@@ -97,6 +97,9 @@ $(document).ready(function() {
     if ($("#shows-breaker").height() > $(window).height()-100) {
         $("#shows-breaker").height($(window).height()-100);
     }
+    if ($(".is-mobile").css('z-index') === '1') {
+        $(".breaker").height(576);
+    }
     var headHght = $("#header").height();
     
     $("#news-content a.view").click(function(ev) {
