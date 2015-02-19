@@ -1,0 +1,1 @@
+<li id="edit/{_id_}"><strong>{_name_}</strong><a href="/admin/cattle/edit/{_id_}" style="float: right;">Edit</a><br /><div class="html_preview">{_description_}<div class="clear"></div></div></li>
