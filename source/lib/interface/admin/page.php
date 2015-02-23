@@ -41,10 +41,11 @@ class page {
             $info->title = 'New Page';
             $info->url = 'new-page';
             $info->html = '<p>Your content goes here</p>';
+            $info->header = '';
         } else {
             // means we need to get some data \\
             $tbl = array('p'=>'tbl_pages');
-            $cols = array('p'=>array('id', 'title', 'url', 'html'));
+            $cols = array('p'=>array('id', 'title', 'url', 'html', 'header'));
             $cond = array(
                 'p'=>array(
                     "join"=>'AND',
@@ -60,6 +61,7 @@ class page {
                 $info->title = $data[0][0]['title'];
                 $info->url = $data[0][0]['url'];
                 $info->html = $data[0][0]['html'];
+                $info->header = $data[0][0]['header'];
             }
         }
         return $info;
@@ -71,6 +73,12 @@ class page {
             $title = $common->getParam('title');
             $url = $common->getParam('url');
             $html = $common->getParam('html');
+            $header = $common->getParam('header', 'file');
+            $move = '';
+            if (!empty($header['tmp_name'])) {
+                require_once '../lib/interface/admin/upload.php';
+                $move = \admin\upload::moveFile($header, 'headings');
+            }
             if (!empty($title) && !empty($url)) {
                 // is an update \\
                 $data = array(
@@ -82,7 +90,8 @@ class page {
                     'fields'=>array(
                         'title'=>$title,
                         'url'=>$url,
-                        'html'=>$html
+                        'html'=>$html,
+                        'header'=>$move
                     ),
                     'where'=>array('id'=>$id)
                 );

@@ -27,7 +27,11 @@ class upload {
         $tempFile = $file['tmp_name'];
         $targetPath = $folder . DIRECTORY_SEPARATOR;
         $targetFile =  $targetPath.time().'-'.$file['name'];
-        if (!move_uploaded_file($tempFile,$common->getParam('DOCUMENT_ROOT', 'server').$targetFile)) {
+        $rootDir = strstr($common->getParam('DOCUMENT_ROOT', 'server'), 'public_html', true);
+        if ($rootDir === false) {
+            $rootDir = $common->getParam('DOCUMENT_ROOT', 'server');
+        }
+        if (!move_uploaded_file($tempFile,$rootDir.DIRECTORY_SEPARATOR.'public_html'.$targetFile)) {
             return "error";
         } else {
             return $targetFile;

@@ -63,13 +63,18 @@ class layout {
         return $outp;
     }
     static function PageTemplate($data) {
-        $outp = '<div id="'.$data['url'].'-content" class="container">';
+        global $common;
+        if (!empty($data['header'])) {
+            $rootDir = strstr($common->getParam('DOCUMENT_ROOT', 'server'), 'public_html', true);
+            if ($rootDir === false) {
+                $rootDir = $common->getParam('DOCUMENT_ROOT', 'server');
+            }
+        }
+        $outp = '<div id="'.$data['url'].'-content" class="container" '.((!empty($data['header']) && file_exists($rootDir.DIRECTORY_SEPARATOR.'public_html'.DIRECTORY_SEPARATOR.$data['header'])) ? 'style="background-image: url('.$data['header'].');"' : '').'>';
         if ($data['url'] === 'home') {
             $outp .= $data['html'];
         } else {
-            
             $data['html'] = preg_replace_callback('/{_([a-zA-Z0-9\/_]*)_}/', '\data\layout::CodeReplacer', $data['html']);
-            
             $outp .= '<div class="breaker" id="'.$data['url'].'-breaker">
                 <h1>'.$data['title'].'</h1>
             </div>

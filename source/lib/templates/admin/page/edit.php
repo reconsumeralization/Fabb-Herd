@@ -25,7 +25,7 @@ $info = \admin\page::edit($params[0]);
         external_plugins: { "filemanager" : "/js/filemanager/plugin.min.js"}
     });
 </script>
-<form action="/admin/page/edit/<?php echo $info->id; ?>" method="post">
+<form action="/admin/page/edit/<?php echo $info->id; ?>" method="post" enctype="multipart/form-data">
     <h1>Edit Page</h1>
     <?php
     if (!empty($resp)) {
@@ -34,6 +34,7 @@ $info = \admin\page::edit($params[0]);
     ?>
     <h4>Page Title: <input type="text" name="title" value="<?php echo $info->title; ?>" /></h4>
     <h4>Page URL: <input type="text" name="url" value="<?php echo $info->url; ?>" /></h4>
+    <h4>Heading Image: <input type="file" name="header" value="<?php echo $info->header; ?>" /><?php echo (!empty($info->header)) ? '<img src="'.$info->header.'" width="100" />' : ''; ?></h4>
     <h4>Page Content:</h4>
     <textarea class="html" name="html" style="height: 800px;"><?php echo $info->html; ?></textarea>
     <input type="hidden" name="id" value="<?php echo $info->id; ?>" />
