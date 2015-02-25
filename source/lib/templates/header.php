@@ -18,6 +18,6 @@
                 <div id="small-logo"><img src="/img/small-logo.png" alt="The Fabb Herd" width="100%" /></div>
             </div>
         </div>
+        <a class="facebook" href="https://www.facebook.com/pages/The-Fabb-Herd/584492104929231" target="_blank"><img src="/img/Facebook-icon.png" alt="Facebook" width="100%" /></a>
         <?php
         echo \data\layout::BuildSection();
-        ?>

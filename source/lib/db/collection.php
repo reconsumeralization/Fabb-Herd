@@ -16,7 +16,21 @@ class collection {
                     $colList = array();
                     if (!empty($cols)) {
                         foreach ($cols as $ref=>$col) {
-                            $colList[] = $ref.'.'.implode(', '.$ref.'.', $col);
+                            foreach ($col as $colu) {
+                                if (substr($colu, 0, 2) === '__') {
+                                    // means it is a MySQL function \\
+                                    $sear = strpos($colu, '(');
+                                    if ($sear !== false) {
+                                        $colu = substr($colu, 0, $sear+1).$ref.'.'.substr($colu, $sear+1);
+                                        $colu = substr($colu, 2);
+                                    } else {
+                                        $colu = $ref.'.'.$colu;
+                                    }
+                                } else {
+                                    $colu = $ref.'.'.$colu;
+                                }
+                                $colList[] = $colu;
+                            }
                         }
                     } else {
                         foreach ($tbl as $ref=>$table) {
@@ -385,5 +399,23 @@ class collection {
             $data['response'][$tbl] = array_merge($info['fields'], $info['where']);
         }
         return $data['response'];
+    }
+    /**
+     * 
+     * @global class $db
+     * @global class $common
+     * @param string $tbl
+     * @param array $cond
+     */
+    static function quickDelete($tbl, $cond=array()) {
+        global $db, $common;
+        if (!empty($cond)) {
+            if (!is_int($cond[2])) {
+                $cond[2] = "'{$cond[2]}'";
+            }
+            $condi = $common->escape_data($cond[0]).$common->escape_data($cond[1]).$common->escape_data($cond[2]);
+            $db->dbQuery("DELETE FROM $tbl WHERE $condi");
+        }
+        return;
     }
 }

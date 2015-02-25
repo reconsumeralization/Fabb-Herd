@@ -48,7 +48,7 @@ body {
 }
 #header {
     height: 80px;
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.97);
     box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.7);
     position: absolute;
     z-index: 3;
@@ -71,7 +71,7 @@ body {
     letter-spacing: 0.07rem;
     text-decoration: none;
     width: 10%;
-    margin: 30px 0;
+    margin: 2% 0;
     color: #0d6506;
 }
 #header a:hover {
@@ -82,12 +82,20 @@ body {
     float: right;
     width: 25%;
 }
+.facebook {
+    float: left;
+    z-index: 3;
+    margin-top: 20%;
+    position: relative;
+    top: 0;
+    width: 10%;
+}
 #small-logo img {
     max-width: 275px;
     max-height: 78px;
 }
 #large-logo {
-    padding: 200px 0 0;
+    padding: 20% 0 0;
     margin: 0px auto 10px;
     width: 50%;
 }
@@ -138,6 +146,212 @@ p {
     overflow: visible;
     box-shadow: 0px 6px 15px 4px rgba(0, 0, 0, 0.4);
 }
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+    .container {
+        background-attachment: scroll !important;
+        background-position: top center !important;
+    }
+    .is-mobile {
+        display: none;
+    }
+}
+/* iPads (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+    .container {
+        background-attachment: scroll !important;
+        background-position: top center !important;
+    }
+    .is-mobile {
+        display: none;
+    }
+}
+/**********
+iPad 3
+**********/
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) and (-webkit-min-device-pixel-ratio : 2) {
+    .container {
+        background-attachment: scroll !important;
+        background-position: top center !important;
+    }
+    .is-mobile {
+        display: none;
+    }
+}
+
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) and (-webkit-min-device-pixel-ratio : 2) {
+    .container {
+        background-attachment: scroll !important;
+        background-position: top center !important;
+    }
+    .is-mobile {
+        display: none;
+    }
+}
+/* iPhone 4 ----------- */
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) and (orientation : landscape) and (-webkit-min-device-pixel-ratio : 2) {
+    .container {
+        background-attachment: scroll !important;
+        background-position: top center !important;
+    }
+    .is-mobile {
+        display: none;
+    }
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) and (orientation : portrait) and (-webkit-min-device-pixel-ratio : 2) {
+    .container {
+        background-attachment: scroll !important;
+        background-position: top center !important;
+    }
+    .is-mobile {
+        display: none;
+    }
+}
+
+/* iPhone 5 ----------- */
+@media only screen and (min-device-width: 320px) and (max-device-height: 568px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2){
+    .container {
+        background-attachment: scroll !important;
+        background-position: top center !important;
+    }
+    .is-mobile {
+        display: none;
+    }
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-height: 568px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2){
+    .container {
+        background-attachment: scroll !important;
+        background-position: top center !important;
+    }
+    .is-mobile {
+        display: none;
+    }
+}
+
+/* iPhone 6 ----------- */
+@media only screen and (min-device-width: 375px) and (max-device-height: 667px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2){
+    .container {
+        background-attachment: scroll !important;
+        background-position: top center !important;
+    }
+    .is-mobile {
+        display: none;
+    }
+}
+
+@media only screen and (min-device-width: 375px) and (max-device-height: 667px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2){
+    .container {
+        background-attachment: scroll !important;
+        background-position: top center !important;
+    }
+    .is-mobile {
+        display: none;
+    }
+}
+
+/* iPhone 6+ ----------- */
+@media only screen and (min-device-width: 414px) and (max-device-height: 736px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2){
+    .container {
+        background-attachment: scroll !important;
+        background-position: top center !important;
+    }
+    .is-mobile {
+        display: none;
+    }
+}
+
+@media only screen and (min-device-width: 414px) and (max-device-height: 736px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2){
+    .container {
+        background-attachment: scroll !important;
+        background-position: top center !important;
+    }
+    .is-mobile {
+        display: none;
+    }
+}
+
+/* Samsung Galaxy S3 ----------- */
+@media only screen and (min-device-width: 320px) and (max-device-height: 640px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2){
+    .container {
+        background-attachment: scroll !important;
+        background-position: top center !important;
+    }
+    .is-mobile {
+        display: none;
+    }
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-height: 640px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2){
+    .container {
+        background-attachment: scroll !important;
+        background-position: top center !important;
+    }
+    .is-mobile {
+        display: none;
+    }
+}
+
+/* Samsung Galaxy S4 ----------- */
+@media only screen and (min-device-width: 320px) and (max-device-height: 640px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 3){
+    .container {
+        background-attachment: scroll !important;
+        background-position: top center !important;
+    }
+    .is-mobile {
+        display: none;
+    }
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-height: 640px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 3){
+    .container {
+        background-attachment: scroll !important;
+        background-position: top center !important;
+    }
+    .is-mobile {
+        display: none;
+    }
+}
+
+/* Samsung Galaxy S5 ----------- */
+@media only screen and (min-device-width: 360px) and (max-device-height: 640px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 3){
+    .container {
+        background-attachment: scroll !important;
+        background-position: top center !important;
+    }
+    .is-mobile {
+        display: none;
+    }
+}
+
+@media only screen and (min-device-width: 360px) and (max-device-height: 640px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 3){
+    .container {
+        background-attachment: scroll !important;
+        background-position: top center !important;
+    }
+    
+    .is-mobile {
+        display: none;
+    }
+}
+@media only screen and (orientation : portrait) {
+    #home-content {
+        background-attachment: scroll !important;
+        background-position: top center !important;
+    }
+    .is-mobile {
+        display: inline;
+    }
+}
+.container {
+    background: #000000;
+}
+.container .content {
+    background: #ffffff;
+    padding: 10px 15%;
+    overflow: hidden;
+}
 #home-content h1 {
     font-family: walkway_condensed, Arial, sans-serif;
     font-size: 3.5rem;
@@ -178,12 +392,12 @@ p {
 }
 #about-content .content {
     background: #ffffff;
-    padding: 60px 15%;
+    padding: 10px 15%;
     overflow: hidden;
 }
 #news-content {
     background: no-repeat top center #000000;
-    background-image: url(/img/news-bg.jpg);
+    background-image: url(/img/BG-2.jpg);
     background-size: cover;
     background-attachment: fixed;
     position: relative;
@@ -192,7 +406,7 @@ p {
 }
 #news-content .content {
     background: #ffffff;
-    padding: 60px 15%;
+    padding: 10px 15%;
     overflow: hidden;
 }
 
@@ -264,7 +478,7 @@ p {
 }
 #cattle-content .content {
     background: #ffffff;
-    padding: 30px 15% 60px;
+    padding: 30px 5% 60px;
     overflow: hidden;
 }
 #cattle-list {
@@ -272,29 +486,34 @@ p {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    float: left;
+    width: 45%;
 }
 #cattle-list li {
     float: left;
-    margin: 0 40px 0 0;
+    margin: 0 15% 0 0;
+    width: 35%;
 }
 #cattle-list li .holder {
     display: block;
     border-radius: 50%;
     background: #a6b092;
-    width: 120px;
-    height: 120px;
+    width: 40px;
+    height: 40px;
     position: relative;
-    margin: 15px;
+    margin: 15px 15px 23px;
 }
 #cattle-list li .holder img.default {
     position: absolute;
-    margin: 7px -5px;
+    margin: 7px 0px;
 }
 #cattle-list li .text {
     display: block;
     font-family: 'Trebuchet MS', Arial, sans-serif;
-    font-size: 1.3rem;
+    font-size: 0.9rem;
     text-align: center;
+    width: 100%;
+    margin: 15px;
 }
 #cattle-list li.active, #cattle-list li.hover {
     margin-top: -8px;
@@ -309,8 +528,7 @@ p {
     text-decoration: underline;
 }
 #cattle-content .cattle-details {
-    float: left;
-    width: 60%;
+    margin: 0;
 }
 .cattle-name {
     font-family: 'Trebuchet MS', Arial, sans-serif;
@@ -338,17 +556,17 @@ p {
     font-size: 1rem;
     padding: 4px;
     display: none;
+    float: right;
+    width: 50%;
 }
 .cattle-images {
     margin: 40px 0 0;
-    float: left;
-    width: 40%;
 }
 .image-view {
     position: relative;
-    width: 420px;
-    height: 315px;
-    background: url(/img/cattle/gallery/coming-soon.png) no-repeat center center #d2d2d2;
+    width: 100%;
+    background: url(/img/cattle/gallery/coming-soon.png) no-repeat center center #ffffff;
+    background-size: 50% 50%;
 }
 .img-container {
     position: absolute;
@@ -358,13 +576,6 @@ p {
     right: 0;
     text-align:center; /* Align center inline elements */
     font: 0/0 a;
-}
-
-.img-container:before {
-    content: ' ';
-    display: inline-block;
-    vertical-align: middle;
-    height: 100%;
 }
 
 .img-container img {
@@ -398,7 +609,7 @@ p {
 }
 #contact-content .content {
     background: #ffffff;
-    padding: 60px 15%;
+    padding: 10px 15%;
     overflow: hidden;
 }
 .content h3 {
@@ -409,7 +620,7 @@ p {
 .content form {
     position: relative;
 }
-.content form input[type='text'], .content form textarea {
+.content form input[type='text'], .content form textarea, .content form input[type='password'] {
     font-family: 'Trebuchet MS', Arial, sans-serif;
     width: 60%;
     border: 1px solid #dddddd;
@@ -438,7 +649,7 @@ p {
 }
 #shows-content {
     background: no-repeat top center #000000;
-    background-image: url(/img/events-bg.jpg);
+    background-image: url(/img/BG-1.jpg);
     background-size: cover;
     background-attachment: fixed;
     position: relative;
@@ -447,7 +658,7 @@ p {
 }
 #shows-content .content {
     background: #ffffff;
-    padding: 60px 15%;
+    padding: 10px 15%;
     overflow: hidden;
 }
 .load-more:link {
@@ -478,64 +689,4 @@ form .error {
 form .success {
     font-size: 1.2rem;
     color: #036600;
-}
-
-@media only screen and (min-device-width: 768px) and (max-device-width: 1024px),
-                       (min-device-width: 540px) and (max-device-width: 960px),
-                       (min-device-width: 375px) and (max-device-width: 667px),
-                       (min-device-width: 320px) and (max-device-width: 568px),
-                       (min-device-width: 320px) and (max-device-width: 480px) {
-    .container {
-        background-size: 120% auto !important;
-        -webkit-background-size: 120% auto !important;
-        -moz-background-size: 120% auto !important;
-        -o-background-size: 120% auto !important;
-        background-attachment: scroll !important;
-    }
-    .is-mobile {
-        position: relative;
-        z-index: 1;
-    }
-    #cattle-content .cattle-details {
-        width: 40%;
-    }
-    .cattle-info {
-        font-size: 0.8rem;
-    }
-    #cattle-list li .holder {
-        width: 60px;
-        height: 60px;
-        margin-top: 8px;
-    }
-    #cattle-list li .text {
-        font-size: 1.2rem;
-    }
-    #cattle-list li .holder img {
-        width: 100%;
-    }
-    #cattle-list li .holder img.default {
-        margin: 7px 0;
-    }
-    #cattle-list li.active, #cattle-list li.hover {
-        margin-top: 0px;
-    }
-    #cattle-list li.active .holder, #cattle-list li.hover .holder {
-        border: 4px solid #577617;
-        margin: 4px 11px 11px;
-    }
-    .cattle-name {
-        font-size: 1.3rem;
-    }
-    .cattle-images {
-        width: 60%;
-    }
-    .image-view {
-        width: 350px;
-        height: 230px;
-    }
-}
-@media only screen and (orientation: portrait) {
-    #header a {
-        font-size: 1.2rem;
-    }
 }

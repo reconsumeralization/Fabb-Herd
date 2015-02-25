@@ -22,7 +22,7 @@ class cattle {
             $cattle = array();
             foreach ($data[0] as $photo) {
                 if (!isset($cattle[$photo['id']])) {
-                    $cattle[$photo['id']] = array('id'=>$photo['id'], 'name'=>$photo['name'], 'dob'=>$photo['dob'], 'category'=>$photo['category'], 'height'=>$photo['height'], 'description'=>$photo['description'], 'sire'=>$photo['sire'], 'dam'=>$photo['dam'], 'video'=>$photo['video'], 'link'=>$photo['link'], 'photos'=>array());
+                    $cattle[$photo['id']] = array('id'=>$photo['id'], 'name'=>$photo['name'], 'dob'=>$photo['dob'], 'category'=>$photo['category'], 'height'=>$photo['height'], 'description'=>$photo['description'], 'icon'=>$photo['icon'], 'sire'=>$photo['sire'], 'dam'=>$photo['dam'], 'video'=>$photo['video'], 'link'=>$photo['link'], 'photos'=>array());
                 }
                 if (!empty($photo['url'])) {
                     $cattle[$photo['id']]['photos'][] = array('url'=>$photo['url'], 'alt'=>$photo['alt']);
@@ -54,12 +54,12 @@ class cattle {
         return '<div class="cattle-info" id="cattle-'.$item['id'].'">
                     <div class="cattle-details">
                         <h2 class="cattle-name">'.$item['name'].'</h2>
-                        <div class="cattle-figures">
+                        <!--<div class="cattle-figures">
                             '.(($item['dob'] !== '0000-00-00') ? '<div class="cattle-figure"><span>'.$age.'</span></div>' : '').'
                             '.((!empty($item['category'])) ? '<div class="cattle-figure"><span>'.$item['category'].'</span></div>' : '').'
                             '.((!empty($item['gender'])) ? '<div class="cattle-figure"><span>'.$item['gender'].'</span></div>' : '').'
                             '.((!empty($item['height'])) ? '<div class="cattle-figure"><span>'.$item['height'].'</span></div>' : '').'
-                        </div>
+                        </div>-->
                         <div class="cattle-description">
                             '.$item['description'].'
                             '.(($item['dob'] !== '0000-00-00') ? '<br /><strong>DOB: </strong>'.$dob->format('d/m/Y') : '').'

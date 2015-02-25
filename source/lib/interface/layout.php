@@ -14,23 +14,38 @@ namespace data;
 class layout {
     static function BuildPage($page=array()) {
         global $common;
+        $opts = array('xhr'=>false);
         if (!empty($page)) {
             switch ($page[0]) {
                 case "admin":
-                    include '../lib/templates/admin/header.php';
-                    $user = \data\auth::cur_user();
-                    if ($user === false) {
+                    if (!\data\auth::logged_in()) {
                         if (!is_null($common->getParam('submitted'))) {
-                            \data\auth::login();
+                            $login = \data\auth::login();
                         }
                         $page[1] = 'login';
                     } else if (empty($page[1])) {
                         $page[1] = 'index';
                     }
-                    if (file_exists('../lib/templates/admin/'.$page[1].'.php')) {
-                        include '../lib/templates/admin/'.$page[1].'.php';
+                    $params = array_slice($page, 3);
+                    require_once '../lib/interface/admin/__base.php';
+                    if (file_exists('../lib/interface/admin/'.$page[1].'.php')) {
+                        require_once '../lib/interface/admin/'.$page[1].'.php';
                     }
-                    include '../lib/templates/admin/footer.php';
+                    if (!$opts['xhr']) {
+                        include '../lib/templates/admin/header.php';
+                    }
+                    if (isset($page[2]) && !empty($page[2])) {
+                        if (file_exists('../lib/templates/admin/'.$page[1].'/'.$page[2].'.php')) {
+                            include '../lib/templates/admin/'.$page[1].'/'.$page[2].'.php';
+                        }
+                    } else {
+                        if (file_exists('../lib/templates/admin/'.$page[1].'.php')) {
+                            include '../lib/templates/admin/'.$page[1].'.php';
+                        }
+                    }
+                    if (!$opts['xhr']) {
+                        include '../lib/templates/admin/footer.php';
+                    }
                     break;
                 default:
                     include '../lib/templates/header.php';
@@ -62,7 +77,7 @@ class layout {
                 '.$data['html'].'
             </div>';
         }
-        $outp .= '</div>';
+        $outp .= '<div class="clear"></div></div>';
         return $outp;
     }
     static function BuildSection($page='') {

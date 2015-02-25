@@ -66,7 +66,9 @@ class news {
         if (!empty($item['photos'])) {
             $photos = '<ul class="news-photos">';
             foreach ($item['photos'] as $photo) {
-                $photos .= '<li><img src="'.$photo.'" /></li>';
+                if (!empty($photo)) {
+                    $photos .= '<li><img src="'.$photo.'" /></li>';
+                }
             }
             $photos .= '</ul>';
         }
