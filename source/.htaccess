@@ -2,8 +2,8 @@
     RewriteEngine on
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule    ^$    public_html/    [L]
-    RewriteRule    (.*) public_html/$1    [L]
+    RewriteRule    ^$    public/    [L]
+    RewriteRule    (.*) public/$1    [L]
  </IfModule>
 #Header set Cache-Control "no-cache, no-store, must-revalidate, private"
 #Header set Expires 0

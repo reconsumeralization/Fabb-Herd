@@ -15,4 +15,7 @@ $(document).ready(function() {
     $(".cattle_list [id^='new']").click(function() {
         window.location = '/admin/cattle/edit/-1';
     });
+    $(".show_list [id^='new']").click(function() {
+        window.location = '/admin/show/edit/-1';
+    });
 });

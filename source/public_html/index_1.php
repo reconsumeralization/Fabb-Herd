@@ -104,25 +104,27 @@ require_once '../lib/config.php';
                         <span class="text">Daisy</span>
                     </li>
                 </ul>
-                <div class="cattle-details">
-                    <h2 id="cattle-name"></h2>
-                    <div id="cattle-figures">
-                        <div class="cattle-figure"><span>4</span></div>
-                        <div class="cattle-figure"><span>steer</span></div>
-                        <div class="cattle-figure"><span>44"</span></div>
+                <div id="cattle-1">
+                    <div class="cattle-details">
+                        <h2 id="cattle-name"></h2>
+                        <div id="cattle-figures">
+                            <div class="cattle-figure"><span>4</span></div>
+                            <div class="cattle-figure"><span>steer</span></div>
+                            <div class="cattle-figure"><span>44"</span></div>
+                        </div>
+                        <div id="cattle-description">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mattis massa eu ante bibendum, et imperdiet eros lobortis. Duis eu suscipit nulla, id malesuada metus. Quisque varius turpis vel tortor mattis, id pretium nibh viverra. Fusce eu porttitor odio. Nam facilisis, risus in sollicitudin sodales, neque augue fringilla mauris, eget lobortis sapien lectus et sapien. Fusce feugiat nec leo in fermentum. Sed et risus vel quam fringilla euismod.</p>
+                        </div>
                     </div>
-                    <div id="cattle-description">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mattis massa eu ante bibendum, et imperdiet eros lobortis. Duis eu suscipit nulla, id malesuada metus. Quisque varius turpis vel tortor mattis, id pretium nibh viverra. Fusce eu porttitor odio. Nam facilisis, risus in sollicitudin sodales, neque augue fringilla mauris, eget lobortis sapien lectus et sapien. Fusce feugiat nec leo in fermentum. Sed et risus vel quam fringilla euismod.</p>
+                    <div id="cattle-images">
+                        <div id="image-view"></div>
+                        <ul id="image-thumbs">
+                            <li><img src="/img/cattle/gallery/daisy-1.jpg" alt="Daisy" /></li>
+                            <li><img src="/img/cattle/gallery/daisy-1.jpg" alt="Daisy" /></li>
+                            <li><img src="/img/cattle/gallery/daisy-1.jpg" alt="Daisy" /></li>
+                            <li><img src="/img/cattle/gallery/daisy-1.jpg" alt="Daisy" /></li>
+                        </ul>
                     </div>
-                </div>
-                <div id="cattle-images">
-                    <div id="image-view"></div>
-                    <ul id="image-thumbs">
-                        <li><img src="/img/cattle/gallery/daisy-1.jpg" alt="Daisy" /></li>
-                        <li><img src="/img/cattle/gallery/daisy-1.jpg" alt="Daisy" /></li>
-                        <li><img src="/img/cattle/gallery/daisy-1.jpg" alt="Daisy" /></li>
-                        <li><img src="/img/cattle/gallery/daisy-1.jpg" alt="Daisy" /></li>
-                    </ul>
                 </div>
             </div>
         </div>
