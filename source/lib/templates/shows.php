@@ -13,8 +13,15 @@ class shows {
             's'=>array('*')
         );
         $joins = array();
-        $cond = array();
-        $limit = array("ORDER BY s.date DESC", "LIMIT $offset,6");
+        $cond = array("s"=>[
+            "join"=>"AND",
+            [
+                "col"=>"date",
+                "operand"=> ">=",
+                "value"=>"NOW()"
+            ]
+        ]);
+        $limit = array("ORDER BY s.date ASC", "LIMIT $offset,6");
         
         $data = \data\collection::buildQuery("SELECT", $tbl, $joins, $cols, $cond, $limit);
         $items = array("left"=>array(), "right"=>array());
