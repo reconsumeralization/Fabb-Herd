@@ -45,7 +45,10 @@ $info = \admin\cattle::edit($params[0]);
         selector: ".description",
         content_css: "/css/main.css"
     });
-    var dropZone = new Dropzone('div#fileDrop', {url: '/admin/upload'});
+    var dropZone = new Dropzone('div#fileDrop', {
+        url: '/admin/upload',
+        headers: {"folder": "cattle/gallery"}
+    });
     dropZone.on('success', function(file, filename) {
         if (file.status === 'success') {
             var clone = $(file.previewElement).clone();

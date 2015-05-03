@@ -39,7 +39,10 @@ $info = \admin\news::edit($params[0]);
         selector: ".story",
         content_css: "/css/main.css"
     });
-    var dropZone = new Dropzone('div#fileDrop', {url: '/admin/upload'});
+    var dropZone = new Dropzone('div#fileDrop', {
+        url: '/admin/upload',
+        headers: {"folder": "news"}
+    });
     dropZone.on('success', function(file, filename) {
         if (file.status === 'success') {
             var clone = $(file.previewElement).clone();
