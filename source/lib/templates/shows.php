@@ -18,10 +18,10 @@ class shows {
             [
                 "col"=>"date",
                 "operand"=> ">=",
-                "value"=>"NOW()"
+                "value"=>"DATE_SUB(NOW(), INTERVAL 6 MONTH)"
             ]
         ]);
-        $limit = array("ORDER BY s.date ASC", "LIMIT $offset,6");
+        $limit = array("ORDER BY s.date ASC");
         
         $data = \data\collection::buildQuery("SELECT", $tbl, $joins, $cols, $cond, $limit);
         $items = array("left"=>array(), "right"=>array());
@@ -44,7 +44,7 @@ class shows {
                         $outp .= '</ul></div>';
                         if ($data[1] == 6) {
                             // potentially an extra resultset \\
-                            $outp .= '<div class="clear"></div><a href="#load" class="load-more" offset="0">View More</a>';
+                            //$outp .= '<div class="clear"></div><a href="#load" class="load-more" offset="0">View More</a>';
                         }
 
                 } else {

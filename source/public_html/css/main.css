@@ -415,11 +415,19 @@ iPad 3
     margin: 0;
     padding: 0;
 }
-.news-holder li {
+.news-holder > li {
     background: #fafafa;
     border: 1px solid #dddddd;
     margin: 10px;
     padding: 5px;
+}
+.news-holder > li > ul {
+    margin: 0;
+    padding: 4px;
+}
+.news-holder > li > ul li {
+    margin: 4px;
+    padding: 4px;
 }
 .news-holder li h4 {
     font-family: walkway_condensed, Arial, sans-serif;
