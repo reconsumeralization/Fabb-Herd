@@ -48,6 +48,9 @@ class layout {
                     }
                     break;
                 default:
+                    if ($page[0] === 'index.php' || $page[0] === '') {
+                        $page[0] = 'home';
+                    }
                     include '../lib/templates/header.php';
                     include '../lib/templates/footer.php';
                     break;
@@ -58,24 +61,24 @@ class layout {
         $nav = \data\handling::GetNav();
         $outp = '';
         foreach ($nav as $item) {
-            $outp .= '<a href="#'.$item['url'].'">'.$item['title'].'</a>';
+            $outp .= '<a href="/'.$item['url'].'">'.$item['title'].'</a>';
         }
         return $outp;
     }
     static function PageTemplate($data) {
         global $common;
         if (!empty($data['header'])) {
-            $rootDir = strstr($common->getParam('DOCUMENT_ROOT', 'server'), 'public_html', true);
+            $rootDir = strstr($common->getParam('DOCUMENT_ROOT', 'server'), 'public', true);
             if ($rootDir === false) {
                 $rootDir = $common->getParam('DOCUMENT_ROOT', 'server');
             }
         }
-        $outp = '<div id="'.$data['url'].'-content" class="container" '.((!empty($data['header']) && file_exists($rootDir.DIRECTORY_SEPARATOR.'public_html'.DIRECTORY_SEPARATOR.$data['header'])) ? 'style="background-image: url('.$data['header'].');"' : '').'>';
+        $outp = '<div id="'.$data['url'].'-content" class="container">';
         if ($data['url'] === 'home') {
-            $outp .= $data['html'];
+            $outp .= '<div class="hero" '.((!empty($data['header']) && file_exists($rootDir.DIRECTORY_SEPARATOR.'public'.DIRECTORY_SEPARATOR.$data['header'])) ? 'style="background-image: url('.$data['header'].');"' : '').'>'.$data['html'].'</div>';
         } else {
             $data['html'] = preg_replace_callback('/{_([a-zA-Z0-9\/_]*)_}/', '\data\layout::CodeReplacer', $data['html']);
-            $outp .= '<div class="breaker" id="'.$data['url'].'-breaker">
+            $outp .= '<div class="hero" id="'.$data['url'].'-header">'.((!empty($data['header']) && file_exists($rootDir.DIRECTORY_SEPARATOR.'public'.DIRECTORY_SEPARATOR.$data['header'])) ? '<img src="'.$data['header'].'" alt="'.$data['title'].'" />' : '').'
                 <h1>'.$data['title'].'</h1>
             </div>
             <div class="content">
@@ -87,6 +90,7 @@ class layout {
     }
     static function BuildSection($page='') {
         $pages = \data\handling::GetPages($page);
+        $output = '';
         foreach ($pages as $content) {
             $output .= \data\layout::PageTemplate($content);
         }

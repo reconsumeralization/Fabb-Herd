@@ -17,7 +17,7 @@ class cattle {
         $cond = array();
         $limit = array("ORDER BY c.name ASC");
         $data = \data\collection::buildQuery("SELECT", $tbl, $joins, $cols, $cond, $limit);
-        $items = array("links"=>array(), "details"=>array());
+        $items = [];
         if ($data[1] > 0) {
             $cattle = array();
             foreach ($data[0] as $photo) {
@@ -30,17 +30,15 @@ class cattle {
             }
         }
         foreach ($cattle as $i=>$item) {
-            $items['links'][] = \templates\cattle::CattleTitle($i, $item);
-            $items['details'][] = \templates\cattle::CattleDescription($item);
+            $items[] = \templates\cattle::CattleTitle($i, $item);
         }
         $outp = '<ul id="cattle-list">';
-        $outp .= implode('', $items['links']);
+        $outp .= implode('', $items);
         $outp .= '</ul>';
-        $outp .= implode('', $items['details']);
         return $outp;
     }
     static function CattleTitle($i, $item) {
-        return '<li id="icon-'.$item['id'].'"><span class="holder"><img '.((empty($item['icon'])) ? 'src="/img/cattle/default.png" class="default"' : 'src="'.$item['icon'].'"').' alt="'.$item['name'].'" /></span><span class="text">'.$item['name'].'</span></li>';
+        return '<li id="icon-'.$item['id'].'"><span class="holder"><img '.((empty($item['icon'])) ? ((!empty($item['photos'][0])) ? 'src="'.$item['photos'][0]['url'].'"' : 'src="/img/cattle/default.png" class="default"') : 'src="'.$item['icon'].'"').' alt="'.$item['name'].'" /></span><div class="cattle_info">'.\templates\cattle::CattleDescription($item).'</div></li>';
     }
     static function CattleDescription($item) {
         global $common;
@@ -69,9 +67,6 @@ class cattle {
                         </div>
                     </div>
                     <div class="cattle-images">
-                        <div class="image-view">
-                            <div class="img-container"></div>
-                        </div>
                         <ul class="image-thumbs">
                             '.implode('', $images).'
                             '.(!empty($item['video']) ? '<li video-url="'.htmlentities($item['video']).'" class="cattle-video"><img src="/img/play-icon.gif" /></li>' : '').'

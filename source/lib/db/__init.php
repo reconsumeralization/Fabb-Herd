@@ -40,14 +40,14 @@ class db {
     */
 
     public function dbQuery($statement, $state='select') {
-        if (debug == 'develop') {
+        if (debug) {
             $mysqlQuery = mysqli_query($this->dbc, $statement) or die("<div class=\"php_error\">Query of <strong>".$statement."</strong> failed with error: ".mysqli_error($this->dbc)."</div>");
         } else {
             $mysqlQuery = @mysqli_query($this->dbc, $statement);
         }
         if ($state != 'id') {
             return $mysqlQuery;
-        } else{
+        } else {
             return mysqli_insert_id($this->dbc);
         }
     }
@@ -73,4 +73,3 @@ class db {
         mysqli_close($this->self['dbc']);
     }
 }
-?>

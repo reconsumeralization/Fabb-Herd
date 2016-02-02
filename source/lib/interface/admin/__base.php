@@ -33,7 +33,10 @@ class __ {
     static function get_data_item($_tbl, $_col, $_cond) {
         $tbl = array('t'=>$_tbl);
         $cols = array('t'=>array($_col.' AS col'));
-        $cond = array('t'=>array($_cond));
+        $cond = [];
+        if (!empty($_cond)) {
+            $cond = array('t'=>array($_cond));
+        }
         $limi = array('LIMIT 1');
         $data = \data\collection::buildQuery("SELECT", $tbl, array(), $cols, $cond, $limi);
         if ($data[1] > 0) {

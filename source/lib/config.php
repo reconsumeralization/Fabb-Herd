@@ -10,13 +10,17 @@ require_once "db/collection.php";
 require_once "session/__init.php";
 
 define('debug', true);
-
+if (debug) {
+    ini_set('display_errors', '1');
+} else {
+    ini_set('display_errors', '0');
+}
 $confArray = array();
 $confArray['db'] = array();
-$confArray['db']['user'] = 'smgdev_fabb';
-$confArray['db']['password'] = '^!g5[&yCpM=[';
+$confArray['db']['user'] = 'root';
+$confArray['db']['password'] = 'root';
 $confArray['db']['host'] = 'localhost';
-$confArray['db']['name'] = 'smgdev_fabb';
+$confArray['db']['name'] = 'fabbherd';
 
 $common = new common();
 $db = new db($confArray['db']);
