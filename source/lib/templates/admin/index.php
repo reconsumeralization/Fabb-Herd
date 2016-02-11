@@ -11,4 +11,3 @@
 
 <?php
 echo \admin\__::display_block('page_count');
-?>

@@ -41,6 +41,7 @@ class cattle {
             $info->name = 'Name';
             $info->dob = \date('d/m/Y');
             $info->category = '';
+            $info->section = '';
             $info->height = '';
             $info->description = 'A brief description goes here';
             $info->icon = '';
@@ -60,7 +61,7 @@ class cattle {
                 )
             );
             $cols = array(
-                'c'=>array('id', 'name', '__DATE_FORMAT(dob, \'%d/%m/%Y\') AS dob', 'category', 'height', 'description', 'icon', 'sire', 'dam', 'video', 'link'),
+                'c'=>array('id', 'name', '__DATE_FORMAT(dob, \'%d/%m/%Y\') AS dob', 'category', 'section', 'height', 'description', 'icon', 'sire', 'dam', 'video', 'link'),
                 'p'=>array('id AS photo_id', 'url')
             );
             $cond = array(
@@ -78,6 +79,7 @@ class cattle {
                 $info->name = $data[0][0]['name'];
                 $info->dob = $data[0][0]['dob'];
                 $info->category = $data[0][0]['category'];
+                $info->section = $data[0][0]['section'];
                 $info->height = $data[0][0]['height'];
                 $info->description = $data[0][0]['description'];
                 $info->icon = $data[0][0]['icon'];
@@ -105,6 +107,7 @@ class cattle {
             }
             $dob = $dateObj->format('Y-m-d');
             $category = $common->getParam('category');
+            $section = $common->getParam('section');
             $height = $common->getParam('height');
             $description = $common->getParam('description');
             $icon = $common->getParam('icon', 'file');
@@ -133,6 +136,7 @@ class cattle {
                         'name'=>$name,
                         'dob'=>$dob,
                         'category'=>$category,
+                        'section'=>$section,
                         'height'=>$height,
                         'description'=>$description,
                         'icon'=>$move,
@@ -154,14 +158,15 @@ class cattle {
                         $imageInfo['rows'][] = array(
                             'fields'=>array(
                                 'cattle_id'=>&$data['response']['tbl_cattle']['id'],
-                                'url'=>$image
+                                'url'=>$image,
+                                'alt'=>''
                             )
                         );
                     }
                 }
                 if ($id !== -1) {
                     $upd = \data\collection::runUpdate('tbl_cattle', $info, $data);
-                    $del = \data\collection::quickDelete('tbl_cattle_photos', array('news_id', '=', $id));
+                    $del = \data\collection::quickDelete('tbl_cattle_photos', array('cattle_id', '=', $id));
                     if (isset($imageInfo)) {
                         $img = \data\collection::runInsert('tbl_cattle_photos', $imageInfo, $imageData);
                     }

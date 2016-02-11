@@ -1,0 +1,573 @@
+/* 
+    Created on : 22-Jul-2014, 15:11:04
+    Author     : richard
+*/
+
+@font-face {
+    font-family: 'kankinregular';
+    src: url('/fonts/kankin-webfont.eot');
+    src: url('/fonts/kankin-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/kankin-webfont.woff') format('woff'),
+         url('/fonts/kankin-webfont.ttf') format('truetype'),
+         url('/fonts/kankin-webfont.svg#kankinregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'walkway_condensed';
+    src: url('/fonts/walkway_condensed-webfont.eot');
+    src: url('/fonts/walkway_condensed-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/walkway_condensed-webfont.woff') format('woff'),
+         url('/fonts/walkway_condensed-webfont.ttf') format('truetype'),
+         url('/fonts/walkway_condensed-webfont.svg#walkway_condensedregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'walkway_condensed';
+    src: url('/fonts/walkway_condensed_bold-webfont.eot');
+    src: url('/fonts/walkway_condensed_bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/walkway_condensed_bold-webfont.woff') format('woff'),
+         url('/fonts/walkway_condensed_bold-webfont.ttf') format('truetype'),
+         url('/fonts/walkway_condensed_bold-webfont.svg#walkway_condensed_boldregular') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
+body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+.clear {
+    clear: both;
+}
+#header {
+    height: 80px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.7);
+    position: absolute;
+    z-index: 3;
+    width: 100%;
+    position: fixed;
+    top: 0;
+}
+#header .container {
+    width: 80%;
+    margin: 0 auto;
+}
+#header .mobile-menu {
+    display: none;
+}
+#header .menu {
+    display: block;
+}
+#header a {
+    display: block;
+    float: left;
+    font-family: walkway_condensed, Arial, sans-serif;
+    font-size: 1.8rem;
+    font-weight: bold;
+    letter-spacing: 0.07rem;
+    text-decoration: none;
+    margin: 24px 15px;
+    color: #0d6506;
+}
+#header a:hover {
+    color: #333333;
+    text-decoration: underline;
+}
+#small-logo {
+    position: absolute;
+    width: 245px;
+    top: 5px;
+    right: 10px;
+}
+#header .facebook {
+    float: left;
+    z-index: 3;
+    margin: 16px 5px;
+    width: 46px;
+}
+#large-logo {
+    padding: 120px 0 0;
+    margin: 0px auto 10px;
+    width: 50%;
+}
+p {
+    font-family: 'Trebuchet MS', Arial;
+    font-size: 0.95rem;
+    letter-spacing: 0.05rem;
+    line-height: 1.5rem;
+}
+.left-col {
+    width: 80%;
+    float: left;
+}
+.right-col {
+    width: 20%;
+    float: right;
+}
+.even-col {
+    width: 50%;
+}
+.hero {
+    position: relative;
+    z-index: 0;
+    overflow: hidden;
+    max-height: 600px;
+}
+.hero > img {
+    width: 100%;
+    display: block;
+    position: relative;
+}
+.hero > img.preload {
+    
+}
+.hero > h1 {
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.4);
+    font-family: walkway_condensed, Arial, sans-serif;
+    font-size: 3.2rem;
+    letter-spacing: 0.06rem;
+    position: absolute;
+    bottom: 0;
+    padding: 0 10%;
+    margin: 0;
+    width: 100%;
+}
+.container .content {
+    background: #ffffff;
+    padding: 10px 15%;
+    overflow: hidden;
+    font-family: 'Trebuchet MS', Arial;
+}
+#home-content .hero {
+    max-height: none;
+    background: no-repeat top center;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-attachment: fixed;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    background-position: center center;
+    background-repeat: no-repeat;
+    z-index: 2;
+    overflow: visible;
+    box-shadow: 0px 6px 15px 4px rgba(0, 0, 0, 0.4);
+}
+#new-content {
+    background: no-repeat top center #ffffff;
+    position: relative;
+    z-index: 1;
+    overflow: visible;
+}
+#home-content h1 {
+    font-family: walkway_condensed, Arial, sans-serif;
+    font-size: 3.5rem;
+    color: #0d6506;
+    width: 80%;
+    margin: 0px auto;
+    padding: 80px 0;
+    text-align: center;
+}
+#home-content h1 em {
+    font-size: 4rem;
+    color: #333333;
+    font-style: normal;
+    margin: 0 auto;
+    padding: 0;
+}
+#home-content h3 {
+    font-family: walkway_condensed, Arial, sans-serif;
+    margin: 0 auto 0;
+    padding-bottom: 60px;
+    text-align: center;
+    color: #ffffff;
+    font-size: 2.2rem;
+    letter-spacing: 0.05rem;
+    text-shadow: 0px 1px 10px rgba(0, 50, 0, 0.8);
+}
+#home-content h3 span {
+    font-size: 2em;
+}
+.news-holder {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.news-holder > li {
+    background: #fafafa;
+    border: 1px solid #dddddd;
+    margin: 10px;
+    padding: 5px;
+}
+.news-holder > li > ul {
+    margin: 0;
+    padding: 4px;
+}
+.news-holder > li > ul li {
+    margin: 4px;
+    padding: 4px;
+}
+.news-holder li h4 {
+    font-family: walkway_condensed, Arial, sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.08rem;
+    color: #0d650d;
+}
+.news-holder li p {
+    margin: 0;
+    padding: 4px 0;
+}
+.news-holder li a:link {
+    color: #036600;
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    font-size: 0.95rem;
+}
+.news-holder li .news-story {
+    display: none;
+}
+.news-photos {
+    list-style: none;
+    overflow: hidden;
+}
+.news-photos li {
+    width: 40%;
+    padding: 3px;
+    float: left;
+}
+.news-photos li img {
+    width: 100%;
+}
+.news-photos li:hover {
+    border: 1px solid #c6c6c6;
+    cursor: pointer;
+}
+.news-image {
+    position: fixed;
+    top: 90px;
+    z-index: 2;
+}
+.modalBG {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.4);
+}
+#cattle-content .content {
+    background: #ffffff;
+    padding: 30px 5% 60px;
+    overflow: hidden;
+}
+#cattle-header > h1 > img {
+    vertical-align: middle;
+    margin: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    opacity: 0.8;
+    cursor: pointer;
+}
+#cattle-header > h1 > img:hover {
+    opacity: 1;
+    border-color: rgba(255, 255, 255, 1);
+}
+#cattle-header .cattle-details {
+    transition-duration: 600ms;
+    transition-property: right;
+    background: rgba(0, 0, 0, 0.4);
+    color: #ffffff;
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    font-size: 0.95rem;
+    position: absolute;
+    right: 0px;
+    width: 200px;
+    top: 0;
+    height: 100%;
+    padding: 80px 10px 10px;
+}
+#cattle-header .cattle-details a:link, #cattle-header .cattle-details a:visited {
+    color: #ffffff;
+}
+#cattle-header .cattle-details a:hover {
+    font-weight: bold;
+}
+#cattle-header .cattle-details h2 {
+    font-size: 1.2rem;
+    padding: 4px;
+    margin: 0;
+}
+#cattle-header .cattle-details p {
+    padding: 2px;
+    margin: 0;
+}
+#cattle-header .cattle-details.hide {
+    right: -420px;
+}
+#cattle-header .cattle-details .prev, #cattle-header .cattle-details .next {
+    position: absolute;
+    bottom: 10px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    width: 60px;
+    text-align: center;
+    border-radius: 6px;
+    font-size: 0.6rem;
+    margin-top: 4px;
+    padding-bottom: 4px;
+    cursor: pointer;
+}
+#cattle-header .cattle-details .prev:hover, #cattle-header .cattle-details .next:hover {
+    border-color: rgba(255, 255, 255, 1);
+}
+#cattle-header .cattle-details .prev span, #cattle-header .cattle-details .next span {
+    font-size: 2rem;
+    display: block;
+    margin-top: -6px;
+    margin-bottom: -6px;
+}
+#cattle-header .cattle-details .next {
+    right: 10px;
+}
+.cattle-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+.cattle-list .cattle-item {
+    float: left;
+    height: 100px;
+    width: 100px;
+    overflow: hidden;
+}
+.cattle-list .cattle-item .holder {
+    display: block;
+    margin: 5px 5px 3px;
+    text-align: center;
+}
+.cattle-list .cattle-item .holder img.default {
+    position: absolute;
+    margin: 7px 0px;
+}
+.cattle-list .cattle-item .holder img {
+    width: 90px;
+    border: 1px solid #ffffff;
+    cursor: pointer;
+}
+.cattle-list .cattle-item .holder img:hover {
+    border: 1px solid #0d6506;
+}
+#cattle-content .cattle-details {
+    margin: 0;
+}
+.cattle-name {
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    font-size: 1.8rem;
+    font-weight: normal;
+}
+.cattle-figures {
+    height: 70px;
+    overflow: hidden;
+}
+.cattle-figures .cattle-figure {
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    border-radius: 50%;
+    width: 48px;
+    height: 43px;
+    background: #a6b092;
+    float: left;
+    font-size: 2rem;
+    padding: 11px 6px 6px;
+    text-align: center;
+    margin: 5px;
+}
+.cattle-info {
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    font-size: 1rem;
+    padding: 4px;
+    display: none;
+    float: right;
+    width: 50%;
+}
+.cattle-images {
+    margin: 40px 0 0;
+}
+.image-view {
+    position: relative;
+    width: 100%;
+    background: url(/img/cattle/gallery/coming-soon.png) no-repeat center center #ffffff;
+    background-size: 50% 50%;
+}
+.img-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align:center; /* Align center inline elements */
+    font: 0/0 a;
+}
+
+.img-container img {
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.image-thumbs {
+    list-style: none;
+    padding: 0;
+    margin: 0 -2px;
+}
+.image-thumbs li {
+    float: left;
+    margin: 4px 2px;
+    width: 88px;
+    height: 88px;
+}
+.image-thumbs li img {
+    max-width: 88px;
+    max-height: 88px;
+}
+#contact-content .content {
+    background: #ffffff;
+    padding: 10px 15%;
+    overflow: hidden;
+}
+.content h3 {
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.05rem;
+}
+.content form {
+    position: relative;
+}
+.content form input[type='text'], .content form textarea, .content form input[type='password'] {
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    width: 60%;
+    border: 1px solid #dddddd;
+    height: 25px;
+    font-size: 1.2rem;
+    margin: 10px;
+    padding: 10px;
+}
+.content form textarea {
+    height: 80px;
+}
+
+.content form input[type='submit'] {
+    background: #0d6506;
+    border: 2px solid #333333;
+    margin: 10px;
+    font-size: 1.2rem;
+    color: #ffffff;
+    cursor: pointer;
+}
+@media only screen and (orientation: portrait) and (min-device-width: 320px), (min-device-width: 768px) {
+    .content form input, .content form textarea {
+        width: 80%;
+    }
+    
+}
+#shows-content {
+    background: no-repeat top center #000000;
+    background-size: cover;
+    background-attachment: fixed;
+    position: relative;
+    z-index: 1;
+    overflow: visible;
+}
+#shows-content .content {
+    background: #ffffff;
+    padding: 10px 15%;
+    overflow: hidden;
+}
+.load-more:link {
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    color: #036600;
+    border: 1px solid #dddddd;
+    display: block;
+    padding: 6px;
+    margin: 10px;
+    background: #fafafa;
+    text-align: center;
+}
+.load-more:hover {
+    background: #e5ead9;
+}
+.loader {
+    display: none;
+    background: url(/img/fabb-loader.gif) no-repeat center center rgba(255, 255, 255, 0.8);
+    width: 100%;
+    height: 200px;
+    position: absolute;
+    top: 0;
+}
+form .error {
+    font-size: 1.2rem;
+    color: #cc0202;
+}
+form .success {
+    font-size: 1.2rem;
+    color: #036600;
+}
+@media only screen and (max-width: 32em) {
+    #header .facebook {
+        display: none;
+    }
+    #cattle-header .cattle-details {
+        width: 160px;
+    }
+    #cattle-header .cattle-details.hide {
+        right: -380px;
+    }
+}
+@media only screen and (max-width: 36em) {
+    #small-logo {
+        width: 160px;
+        margin-top: 12px;
+    }
+    #header .container {
+        width: 100%;
+    }
+}
+@media only screen and (max-width: 53.9em) {
+    #header .mobile-menu {
+        background: url(/img/menu.svg) no-repeat left center;
+        background-size: 40px 30px;
+        padding-left: 50px;
+        display: block;
+        width: 70px;
+    }
+    #header .menu {
+        position: absolute;
+        clear: left;
+        display: none;
+        width: 100%;
+        left: 0;
+        top: 80px;
+        background: rgba(255, 255, 255, 0.9);
+    }
+    #header .menu > a {
+        display: block;
+        float: none;
+        padding: 10px 20px;
+        margin: 0;
+    }
+}
+@media only screen and (min-width: 54em) and (max-width: 65em) {
+    #header a {
+        font-size: 1.2rem;
+        margin: 28px 10px;
+    }
+}
+@media only screen and (max-height: 30em) {
+    #header .menu > a {
+        padding: 4px 10px;
+    }
+}

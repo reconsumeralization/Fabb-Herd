@@ -98,6 +98,11 @@ class collection {
                                     if (isset($joiner) && !empty($subWhere)) {
                                         $where[] = "(".implode(' '.$joiner.' ', $subWhere).")";
                                     }
+                                } else if (count($blocks) === 1) {
+                                    // means that there's just 1 column to query \\
+                                    foreach ($blocks as $col=>$val) {
+                                        $where[] = $ref.'.'.$col.'='.$val;
+                                    }
                                 } else {
                                     // this means there's deeper work to do \\
                                     $subWhere = array();

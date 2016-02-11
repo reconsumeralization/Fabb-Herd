@@ -1,6 +1,6 @@
 <form action="/admin/login" method="post">
     <?php
-    if (is_array($login)) {
+    if (isset($login) && is_array($login)) {
         echo '<p>'.implode('<br />', $login).'</p>';
     }
     ?>

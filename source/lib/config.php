@@ -13,10 +13,10 @@ define('debug', true);
 
 $confArray = array();
 $confArray['db'] = array();
-$confArray['db']['user'] = 'smgdev_fabb';
-$confArray['db']['password'] = '^!g5[&yCpM=[';
+$confArray['db']['user'] = 'root';
+$confArray['db']['password'] = 'root';
 $confArray['db']['host'] = 'localhost';
-$confArray['db']['name'] = 'smgdev_fabb';
+$confArray['db']['name'] = 'fabbherd';
 
 $common = new common();
 $db = new db($confArray['db']);

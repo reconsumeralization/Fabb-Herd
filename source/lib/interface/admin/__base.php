@@ -13,14 +13,14 @@
 namespace admin;
 class __ {
     static function display_block($name='') {
-        if (method_exists(get_called_class(), 'page_count')) {
+        if (method_exists(get_called_class(), $name)) {
             return call_user_func_array(get_called_class().'::'.$name, array_slice(func_get_args(), 1));
         } else {
             return 'Method not found';
         }
     }
     static function page_count() {
-        $count = \admin\__::get_data_item('tbl_pages', '__COUNT(id)', array());
+        $count = \admin\__::get_data_item('tbl_pages', '__COUNT(id)', []);
         return 'Total pages: '.$count;
     }
     /**
@@ -33,7 +33,10 @@ class __ {
     static function get_data_item($_tbl, $_col, $_cond) {
         $tbl = array('t'=>$_tbl);
         $cols = array('t'=>array($_col.' AS col'));
-        $cond = array('t'=>array($_cond));
+        $cond = [];
+        if (!empty($_cond)) {
+            $cond = array('t'=>array($_cond));
+        }
         $limi = array('LIMIT 1');
         $data = \data\collection::buildQuery("SELECT", $tbl, array(), $cols, $cond, $limi);
         if ($data[1] > 0) {

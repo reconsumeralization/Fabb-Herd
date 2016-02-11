@@ -14,7 +14,7 @@ class shows {
         );
         $joins = array();
         $cond = array("s"=>[
-            "join"=>"AND",
+            "join"=>"OR",
             [
                 "col"=>"date",
                 "operand"=> ">=",
@@ -59,6 +59,9 @@ class shows {
             }
         } else if ($xhr) {
             $outp = array('success'=>true, 'offset'=>0);
+        } else if (!$data) {
+            // no results \\
+            $outp = '<p>There are currently no upcoming shows.</p>';
         }
         return $outp;
     }

@@ -37,4 +37,7 @@ class upload {
             return $targetFile;
         }
     }
+    static function resizeFile($file, $size=400, $tgtDir=null) {
+        
+    }
 }

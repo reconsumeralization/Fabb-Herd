@@ -22,7 +22,7 @@ class handling {
         );
         $cond = array();
         if (!empty($title)) {
-            $cond = array('p'=>array('url'=>$title));
+            $cond = array('p'=>array('url'=>"'$title'"));
         }
         $data = \data\collection::buildQuery("SELECT", $tbl, $joins, $cols, $cond);
         return $data[0];
