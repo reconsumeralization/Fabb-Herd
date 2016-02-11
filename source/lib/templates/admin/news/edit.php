@@ -33,10 +33,13 @@ $info = \admin\news::edit($params[0]);
     <input type="hidden" name="submitted" value="TRUE" />
     <input type="submit" name="save" value="Save" />
     <input type="reset" name="restore" value="Reset Changes" />
+    <input type="button" name="delete" value="Delete" />
 </form>
 <script type="text/javascript">
     tinymce.init({
         selector: ".story",
+        toolbar: "undo redo | styleselect | bold italic | link image",
+        plugins: "link",
         content_css: "/css/main.css"
     });
     var dropZone = new Dropzone('div#fileDrop', {
@@ -55,5 +58,23 @@ $info = \admin\news::edit($params[0]);
     });
     $(".image-list").on('click', 'div.remove', function() {
         $(this).parent().empty().remove();
+    });
+    $(function() {
+        $("input[name='delete']").click(function() {
+            var con = confirm("Are you sure you wish to delete this news item?");
+            if (con) {
+                $.ajax({
+                    "url": "/admin/delete",
+                    "type": "post",
+                    "dataType": "json",
+                    "data": {"submitted": true, "type": "news", "id": <?php echo $info->id; ?>},
+                    "success": function(i) {
+                        if (typeof i === 'object' && i.status) {
+                            window.location.href = "/admin/news"
+                        }
+                    }
+                });
+            }
+        });
     });
 </script>

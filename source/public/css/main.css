@@ -121,10 +121,6 @@ p {
 .hero > img {
     width: 100%;
     display: block;
-    position: relative;
-}
-.hero > img.preload {
-    
 }
 .hero > h1 {
     color: #ffffff;
@@ -266,102 +262,29 @@ p {
     padding: 30px 5% 60px;
     overflow: hidden;
 }
-#cattle-header > h1 > img {
-    vertical-align: middle;
-    margin: 4px;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    opacity: 0.8;
-    cursor: pointer;
-}
-#cattle-header > h1 > img:hover {
-    opacity: 1;
-    border-color: rgba(255, 255, 255, 1);
-}
-#cattle-header .cattle-details {
-    transition-duration: 600ms;
-    transition-property: right;
-    background: rgba(0, 0, 0, 0.4);
-    color: #ffffff;
-    font-family: 'Trebuchet MS', Arial, sans-serif;
-    font-size: 0.95rem;
-    position: absolute;
-    right: 0px;
-    width: 200px;
-    top: 0;
-    height: 100%;
-    padding: 80px 10px 10px;
-}
-#cattle-header .cattle-details a:link, #cattle-header .cattle-details a:visited {
-    color: #ffffff;
-}
-#cattle-header .cattle-details a:hover {
-    font-weight: bold;
-}
-#cattle-header .cattle-details h2 {
-    font-size: 1.2rem;
-    padding: 4px;
-    margin: 0;
-}
-#cattle-header .cattle-details p {
-    padding: 2px;
-    margin: 0;
-}
-#cattle-header .cattle-details.hide {
-    right: -420px;
-}
-#cattle-header .cattle-details .prev, #cattle-header .cattle-details .next {
-    position: absolute;
-    bottom: 10px;
-    background: rgba(0, 0, 0, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    width: 60px;
-    text-align: center;
-    border-radius: 6px;
-    font-size: 0.6rem;
-    margin-top: 4px;
-    padding-bottom: 4px;
-    cursor: pointer;
-}
-#cattle-header .cattle-details .prev:hover, #cattle-header .cattle-details .next:hover {
-    border-color: rgba(255, 255, 255, 1);
-}
-#cattle-header .cattle-details .prev span, #cattle-header .cattle-details .next span {
-    font-size: 2rem;
-    display: block;
-    margin-top: -6px;
-    margin-bottom: -6px;
-}
-#cattle-header .cattle-details .next {
-    right: 10px;
-}
-.cattle-list {
+#cattle-list {
     list-style: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
 }
-.cattle-list .cattle-item {
+#cattle-list li {
     float: left;
     height: 100px;
     width: 100px;
     overflow: hidden;
 }
-.cattle-list .cattle-item .holder {
+#cattle-list li .holder {
     display: block;
     margin: 5px 5px 3px;
     text-align: center;
 }
-.cattle-list .cattle-item .holder img.default {
+#cattle-list li .holder img.default {
     position: absolute;
     margin: 7px 0px;
 }
-.cattle-list .cattle-item .holder img {
+#cattle-list li .holder img {
     width: 90px;
-    border: 1px solid #ffffff;
-    cursor: pointer;
-}
-.cattle-list .cattle-item .holder img:hover {
-    border: 1px solid #0d6506;
 }
 #cattle-content .cattle-details {
     margin: 0;
@@ -520,18 +443,8 @@ form .success {
     #header .facebook {
         display: none;
     }
-    #cattle-header .cattle-details {
-        width: 160px;
-    }
-    #cattle-header .cattle-details.hide {
-        right: -380px;
-    }
 }
 @media only screen and (max-width: 36em) {
-    #small-logo {
-        width: 160px;
-        margin-top: 12px;
-    }
     #header .container {
         width: 100%;
     }
@@ -564,10 +477,5 @@ form .success {
     #header a {
         font-size: 1.2rem;
         margin: 28px 10px;
-    }
-}
-@media only screen and (max-height: 30em) {
-    #header .menu > a {
-        padding: 4px 10px;
     }
 }

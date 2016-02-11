@@ -10,7 +10,11 @@ require_once "db/collection.php";
 require_once "session/__init.php";
 
 define('debug', true);
-
+if (debug) {
+    ini_set('display_errors', '1');
+} else {
+    ini_set('display_errors', '0');
+}
 $confArray = array();
 $confArray['db'] = array();
 $confArray['db']['user'] = 'root';

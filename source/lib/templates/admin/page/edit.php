@@ -11,7 +11,7 @@ $info = \admin\page::edit($params[0]);
         selector: ".html",
         content_css: "/css/main.css",
         body_class: "container",
-        body_id: "<?php echo $info->url; ?>-content",
+        body_id: "<?php echo ($info->url !== 'home') ? 'new' : $info->url; ?>-content",
         plugins: [
             "advlist autolink link image lists charmap print preview hr anchor pagebreak",
             "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
@@ -23,6 +23,24 @@ $info = \admin\page::edit($params[0]);
         external_filemanager_path:"/js/filemanager/",
         filemanager_title:"Filemanager" ,
         external_plugins: { "filemanager" : "/js/filemanager/plugin.min.js"}
+    });
+    $(function() {
+        $("input[name='delete']").click(function() {
+            var con = confirm("Are you sure you wish to delete this page?");
+            if (con) {
+                $.ajax({
+                    "url": "/admin/delete",
+                    "type": "post",
+                    "dataType": "json",
+                    "data": {"submitted": true, "type": "page", "id": <?php echo $info->id; ?>},
+                    "success": function(i) {
+                        if (typeof i === 'object' && i.status) {
+                            window.location.href = "/admin/page"
+                        }
+                    }
+                });
+            }
+        });
     });
 </script>
 <form action="/admin/page/edit/<?php echo $info->id; ?>" method="post" enctype="multipart/form-data">
@@ -36,9 +54,10 @@ $info = \admin\page::edit($params[0]);
     <h4>Page URL: <input type="text" name="url" value="<?php echo $info->url; ?>" /></h4>
     <h4>Heading Image: <input type="file" name="header" value="<?php echo $info->header; ?>" /><?php echo (!empty($info->header)) ? '<img src="'.$info->header.'" width="100" />' : ''; ?></h4>
     <h4>Page Content:</h4>
-    <textarea class="html" name="html" style="height: 800px;"><?php echo $info->html; ?></textarea>
+    <textarea class="html" name="html" style="height: 800px;"><?php echo htmlentities($info->html); ?></textarea>
     <input type="hidden" name="id" value="<?php echo $info->id; ?>" />
     <input type="hidden" name="submitted" value="TRUE" />
     <input type="submit" name="save" value="Save" />
     <input type="reset" name="restore" value="Reset Changes" />
+    <input type="button" name="delete" value="Delete Page" />
 </form>

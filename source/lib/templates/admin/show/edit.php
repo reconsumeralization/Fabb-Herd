@@ -18,6 +18,24 @@ $info = \admin\show::edit($params[0]);
         toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
         toolbar2: "| responsivefilemanager | link unlink anchor | image media | forecolor backcolor  | print preview code "
     });
+    $(function() {
+        $("input[name='delete']").click(function() {
+            var con = confirm("Are you sure you wish to delete this cattle?");
+            if (con) {
+                $.ajax({
+                    "url": "/admin/delete",
+                    "type": "post",
+                    "dataType": "json",
+                    "data": {"submitted": true, "type": "show", "id": <?php echo $info->id; ?>},
+                    "success": function(i) {
+                        if (typeof i === 'object' && i.status) {
+                            window.location.href = "/admin/show"
+                        }
+                    }
+                });
+            }
+        });
+    });
 </script>
 <form action="/admin/show/edit/<?php echo $info->id; ?>" method="post">
     <h1>Edit Show</h1>
@@ -34,4 +52,5 @@ $info = \admin\show::edit($params[0]);
     <input type="hidden" name="submitted" value="TRUE" />
     <input type="submit" name="save" value="Save" />
     <input type="reset" name="restore" value="Reset Changes" />
+    <input type="button" name="delete" value="Delete" />
 </form>
