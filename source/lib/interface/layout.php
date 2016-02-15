@@ -12,10 +12,12 @@
  */
 namespace data;
 class layout {
+    static $subpage = '';
     static function BuildPage($page=array()) {
         global $common;
         $opts = array('xhr'=>false);
         if (!empty($page)) {
+            self::$subpage = (isset($page[1])) ? $page[1] : $page[0];
             switch ($page[0]) {
                 case "admin":
                     if (!\data\auth::logged_in()) {
@@ -61,12 +63,15 @@ class layout {
         $nav = \data\handling::GetNav();
         $outp = '';
         foreach ($nav as $item) {
-            $outp .= '<a href="/'.$item['url'].'">'.$item['title'].'</a>';
+            if ($item['url'] !== 'home') {
+                $outp .= '<a class="nav" href="/'.$item['url'].'">'.$item['title'].'</a>';
+            }
         }
         return $outp;
     }
     static function PageTemplate($data) {
         global $common;
+        $data['url'] = explode('/', $data['url'])[0];
         if (!empty($data['header'])) {
             $rootDir = strstr($common->getParam('DOCUMENT_ROOT', 'server'), 'public', true);
             if ($rootDir === false) {
@@ -88,14 +93,14 @@ class layout {
         $outp .= '<div class="clear"></div></div>';
         return $outp;
     }
-    static function BuildSection($page='') {
-        $pages = \data\handling::GetPages($page);
+    static function BuildSection($page=[]) {
+        $pages = \data\handling::GetPages(implode('/', $page));
         return $pages[0];
     }
     static function CodeReplacer($code) {
         if (file_exists('../lib/templates/'.$code[1].'.php')) {
             require_once '../lib/templates/'.$code[1].'.php';
-            return call_user_func('\templates\\'.$code[1].'::BuildOutput');
+            return call_user_func('\templates\\'.$code[1].'::BuildOutput', self::$subpage);
         }
     }
 }

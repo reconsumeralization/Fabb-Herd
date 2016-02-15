@@ -58,7 +58,7 @@ function displayImage(src, catInd) {
 }
 function descVisible() {
     if ($(".cattle-details", "#cattle-header").length === 0) {
-        $("#cattle-header").append('<div class="cattle-details hide" />');
+        $("#cattle-header").prepend('<div class="cattle-details hide" />');
     }
     return !($(".cattle-details", "#cattle-header").hasClass('hide'));
 }
@@ -95,7 +95,7 @@ function changeImg(source, catInd) {
             }
         }
         window.scrollTo(0, 0);
-        $(this).css('margin-top', headH).fadeIn(function() {displayDesc(source, catInd);});
+        $(this).css('margin-top', headH).addClass('slideshow').fadeIn(function() {displayDesc(source, catInd);});
     });
 }
 function preloadImgIterate(list) {
@@ -121,6 +121,9 @@ function displayDesc(source, catInd) {
         prevDesc = curDesc;
     }
     displayNav(source, catInd);
+    if ($("> img:first", "#cattle-header").css('z-index') === '1') {
+        $("> img:first", "#cattle-header").animate({'margin-top': $("#header").height()+$(".cattle-details", "#cattle-header").height()-$(".navigation", "#cattle-header .cattle-details").height()});
+    }
 }
 function displayNav(source, catInd) {
     // find the cattle by index \\
@@ -189,5 +192,7 @@ function displayNav(source, catInd) {
     });
 }
 function loadCattle(target) {
-    displayCattle($("a[title='"+target+"']").parent());
+    if (target !== '') {
+        displayCattle($("a[title='"+target+"']").parent());
+    }
 }

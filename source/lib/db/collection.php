@@ -145,9 +145,9 @@ class collection {
                     }
                     if (func_num_args() > 5 && !is_bool(func_get_arg(5))) {
                         if (is_array(func_get_arg(5))) {
-                            $query .= implode(' ', func_get_arg(5));
+                            $query .= ' '.implode(' ', func_get_arg(5));
                         } else {
-                            $query .= func_get_arg(5);
+                            $query .= ' '.func_get_arg(5);
                         }
                     }
                 }

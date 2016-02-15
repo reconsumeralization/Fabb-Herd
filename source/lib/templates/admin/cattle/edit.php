@@ -16,7 +16,7 @@ $info = \admin\cattle::edit($params[0]);
     <h4>Name: <input type="text" name="name" value="<?php echo $info->name; ?>" /></h4>
     <h4>Date of Birth: <input type="text" name="dob" value="<?php echo $info->dob; ?>" /></h4>
     <h4>Category: <input type="text" name="category" value="<?php echo $info->category; ?>" /></h4>
-    <h4>Section: <input type="text" name="section" value="<?php echo $info->section; ?>" /></h4>
+    <h4>Section: <select name="section"><option value="herd-sires" <?php echo ($info->section === 'herd-sires') ? 'selected="selected"' : ''; ?>>Herd sires</option><option value="ai-sires" <?php echo ($info->section === 'ai-sires') ? 'selected="selected"' : ''; ?>>Ai sires</option><option value="females" <?php echo ($info->section === 'females') ? 'selected="selected"' : ''; ?>>Females</option></select></h4>
     <h4>Height: <input type="text" name="height" value="<?php echo $info->height; ?>" /></h4>
     <h4>Description: <textarea name="description" class="description"><?php echo $info->description; ?></textarea></h4>
     <h4>Icon: <input type="file" name="icon" value="<?php echo $info->icon; ?>" /><?php echo (!empty($info->icon)) ? '<img src="'.$info->icon.'" width="100" height="100" />' : ''; ?></h4>
@@ -40,7 +40,6 @@ $info = \admin\cattle::edit($params[0]);
     <input type="hidden" name="submitted" value="TRUE" />
     <input type="submit" name="save" value="Save" />
     <input type="reset" name="restore" value="Reset Changes" />
-    <input type="button" name="delete" value="Delete" />
 </form>
 <script type="text/javascript">
     tinymce.init({
@@ -49,7 +48,7 @@ $info = \admin\cattle::edit($params[0]);
     });
     var dropZone = new Dropzone('div#fileDrop', {
         url: '/admin/upload',
-        headers: {"folder": "cattle/gallery", "size": "1280x720", "thumb": "90x60"}
+        headers: {"folder": "cattle/gallery"}
     });
     dropZone.on('success', function(file, filename) {
         if (file.status === 'success') {
@@ -63,23 +62,5 @@ $info = \admin\cattle::edit($params[0]);
     });
     $(".image-list").on('click', 'div.remove', function() {
         $(this).parent().empty().remove();
-    });
-    $(function() {
-        $("input[name='delete']").click(function() {
-            var con = confirm("Are you sure you wish to delete this cattle?");
-            if (con) {
-                $.ajax({
-                    "url": "/admin/delete",
-                    "type": "post",
-                    "dataType": "json",
-                    "data": {"submitted": true, "type": "cattle", "id": <?php echo $info->id; ?>},
-                    "success": function(i) {
-                        if (typeof i === 'object' && i.status) {
-                            window.location.href = "/admin/cattle"
-                        }
-                    }
-                });
-            }
-        });
     });
 </script>
