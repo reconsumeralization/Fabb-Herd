@@ -7,7 +7,7 @@
 
 namespace templates;
 class shows {
-    static function BuildOutput($offset=0, $xhr=false) {
+    static function BuildOutput($url, $offset=0, $xhr=false) {
         $tbl = array('s'=>'tbl_shows');
         $cols = array(
             's'=>array('*')

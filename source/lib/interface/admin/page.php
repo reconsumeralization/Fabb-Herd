@@ -74,7 +74,7 @@ class page {
             $url = $common->getParam('url');
             $html = $common->getParam('html');
             $header = $common->getParam('header', 'file');
-            $move = '';
+            $move = $common->getParam('old_header');
             if (!empty($header['tmp_name'])) {
                 require_once '../lib/interface/admin/upload.php';
                 $move = \admin\upload::moveFile($header, 'headings');

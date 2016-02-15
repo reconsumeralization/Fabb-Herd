@@ -16,7 +16,7 @@ $info = \admin\cattle::edit($params[0]);
     <h4>Name: <input type="text" name="name" value="<?php echo $info->name; ?>" /></h4>
     <h4>Date of Birth: <input type="text" name="dob" value="<?php echo $info->dob; ?>" /></h4>
     <h4>Category: <input type="text" name="category" value="<?php echo $info->category; ?>" /></h4>
-    <h4>Section: <input type="text" name="section" value="<?php echo $info->section; ?>" /></h4>
+    <h4>Section: <select name="section"><option value="herd-sires" <?php echo ($info->section === 'herd-sires') ? 'selected="selected"' : ''; ?>>Herd sires</option><option value="ai-sires" <?php echo ($info->section === 'ai-sires') ? 'selected="selected"' : ''; ?>>Ai sires</option><option value="females" <?php echo ($info->section === 'females') ? 'selected="selected"' : ''; ?>>Females</option><option value="for-sale" <?php echo ($info->section === 'for-sale') ? 'selected="selected"' : ''; ?>>For sale</option></select></h4>
     <h4>Height: <input type="text" name="height" value="<?php echo $info->height; ?>" /></h4>
     <h4>Description: <textarea name="description" class="description"><?php echo $info->description; ?></textarea></h4>
     <h4>Icon: <input type="file" name="icon" value="<?php echo $info->icon; ?>" /><?php echo (!empty($info->icon)) ? '<img src="'.$info->icon.'" width="100" height="100" />' : ''; ?></h4>

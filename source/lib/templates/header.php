@@ -1,5 +1,5 @@
 <?php
-$section = \data\layout::BuildSection($page[0]);
+$section = \data\layout::BuildSection($page);
 ?>
 <!DOCTYPE html>
 <html>
@@ -26,7 +26,7 @@ $section = \data\layout::BuildSection($page[0]);
         <div class="is-mobile"></div>
         <div id="header">
             <div class="container">
-                <a href="#menu" class="mobile-menu"><span>MENU</span></a>
+                <a href="#menu" class="nav mobile-menu"><span>MENU</span></a>
                 <a class="facebook" href="https://www.facebook.com/pages/The-Fabb-Herd/584492104929231" target="_blank"><img src="/img/Facebook-icon.png" alt="Facebook" width="100%" /></a>
                 <a class="facebook" href="https://twitter.com/fabbherd" target="_blank"><img src="/img/twitter-icon.png" width="100%" /></a>
                 <div class="menu">
@@ -35,7 +35,7 @@ $section = \data\layout::BuildSection($page[0]);
                 ?>
                 </div>
             </div>
-            <div id="small-logo"><img src="/img/small-logo.png" alt="The Fabb Herd" width="100%" /></div>
+            <div id="small-logo"><a class="home" href="/"><img src="/img/small-logo.png" alt="The Fabb Herd" width="100%" /></a></div>
         </div>
         <?php
         echo \data\layout::PageTemplate($section);

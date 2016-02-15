@@ -57,26 +57,26 @@ body {
     width: 80%;
     margin: 0 auto;
 }
-#header .mobile-menu {
-    display: none;
-}
 #header .menu {
     display: block;
 }
-#header a {
+#header .nav {
     display: block;
     float: left;
     font-family: walkway_condensed, Arial, sans-serif;
-    font-size: 1.8rem;
+    font-size: 1.7rem;
     font-weight: bold;
-    letter-spacing: 0.07rem;
+    letter-spacing: 0.06rem;
     text-decoration: none;
-    margin: 24px 15px;
+    margin: 24px 10px;
     color: #0d6506;
 }
-#header a:hover {
+#header .nav:hover {
     color: #333333;
     text-decoration: underline;
+}
+#header .mobile-menu {
+    display: none;
 }
 #small-logo {
     position: absolute;
@@ -87,8 +87,8 @@ body {
 #header .facebook {
     float: left;
     z-index: 3;
-    margin: 16px 5px;
-    width: 46px;
+    margin: 20px 5px;
+    width: 36px;
 }
 #large-logo {
     padding: 120px 0 0;
@@ -121,6 +121,10 @@ p {
 .hero > img {
     width: 100%;
     display: block;
+    position: relative;
+}
+.hero > img.preload {
+    
 }
 .hero > h1 {
     color: #ffffff;
@@ -133,6 +137,7 @@ p {
     padding: 0 10%;
     margin: 0;
     width: 100%;
+    z-index: 3;
 }
 .container .content {
     background: #ffffff;
@@ -262,29 +267,114 @@ p {
     padding: 30px 5% 60px;
     overflow: hidden;
 }
-#cattle-list {
+#cattle-header > h1 > img {
+    vertical-align: middle;
+    margin: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    opacity: 0.8;
+    cursor: pointer;
+}
+#cattle-header > h1 > img:hover {
+    opacity: 1;
+    border-color: rgba(255, 255, 255, 1);
+}
+#cattle-header .cattle-details {
+    transition-duration: 600ms;
+    transition-property: right;
+    background: rgba(0, 0, 0, 0.4);
+    color: #ffffff;
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    font-size: 0.95rem;
+    position: absolute;
+    right: 0px;
+    width: 200px;
+    top: 0;
+    height: 100%;
+    padding: 80px 10px 10px;
+    z-index: 1;
+}
+#cattle-header .cattle-details a:link, #cattle-header .cattle-details a:visited {
+    color: #ffffff;
+}
+#cattle-header .cattle-details a:hover {
+    font-weight: bold;
+}
+#cattle-header .cattle-details h2 {
+    font-size: 1.2rem;
+    padding: 4px;
+    margin: 0;
+}
+#cattle-header .cattle-details p {
+    padding: 2px;
+    margin: 0;
+    line-height: normal;
+}
+#cattle-header .cattle-details ul {
+    margin: 0 4px;
+    padding: 3px 6px;
+}
+#cattle-header .cattle-detauls ul li {
+    margin: 0 4px;
+    padding: 2px 6px;
+}
+#cattle-header .cattle-details.hide {
+    right: -420px;
+}
+#cattle-header .cattle-details .navigation {
+    overflow: auto;
+}
+#cattle-header .cattle-details .prev, #cattle-header .cattle-details .next {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    width: 60px;
+    text-align: center;
+    border-radius: 6px;
+    font-size: 0.6rem;
+    margin-top: 4px;
+    margin-bottom: 10px;
+    padding-bottom: 4px;
+    cursor: pointer;
+    float: left;
+}
+#cattle-header .cattle-details .prev:hover, #cattle-header .cattle-details .next:hover {
+    border-color: rgba(255, 255, 255, 1);
+}
+#cattle-header .cattle-details .prev span, #cattle-header .cattle-details .next span {
+    font-size: 2rem;
+    display: block;
+    margin-top: -6px;
+    margin-bottom: -6px;
+}
+#cattle-header .cattle-details .next {
+    float: right;
+}
+.cattle-list {
     list-style: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
 }
-#cattle-list li {
+.cattle-list .cattle-item {
     float: left;
     height: 100px;
     width: 100px;
     overflow: hidden;
 }
-#cattle-list li .holder {
+.cattle-list .cattle-item .holder {
     display: block;
     margin: 5px 5px 3px;
     text-align: center;
 }
-#cattle-list li .holder img.default {
+.cattle-list .cattle-item .holder img.default {
     position: absolute;
     margin: 7px 0px;
 }
-#cattle-list li .holder img {
-    width: 90px;
+.cattle-list .cattle-item .holder img {
+    border: 1px solid #ffffff;
+    cursor: pointer;
+}
+.cattle-list .cattle-item .holder img:hover {
+    border: 1px solid #0d6506;
 }
 #cattle-content .cattle-details {
     margin: 0;
@@ -439,17 +529,7 @@ form .success {
     font-size: 1.2rem;
     color: #036600;
 }
-@media only screen and (max-width: 32em) {
-    #header .facebook {
-        display: none;
-    }
-}
-@media only screen and (max-width: 36em) {
-    #header .container {
-        width: 100%;
-    }
-}
-@media only screen and (max-width: 53.9em) {
+@media only screen and (max-width: 53.99em) {
     #header .mobile-menu {
         background: url(/img/menu.svg) no-repeat left center;
         background-size: 40px 30px;
@@ -472,10 +552,106 @@ form .success {
         padding: 10px 20px;
         margin: 0;
     }
+    #cattle-header .cattle-details h2 {
+        font-size: 1rem;
+        padding: 0;
+        margin: 0;
+    }
+    #cattle-header .cattle-details p {
+        font-size: 0.8rem;
+        padding: 0;
+        margin: 0;
+        line-height: normal;
+    }
+}
+@media only screen and (max-width: 36em) {
+    #small-logo {
+        width: 160px;
+        margin-top: 12px;
+    }
+    #header .container {
+        width: 100%;
+    }
+    .container .content h3 {
+        font-size: 1.2rem;
+    }
+    #cattle-header .cattle-details .prev, #cattle-header .cattle-details .next {
+        width: 40px;
+        text-align: center;
+        border-radius: 4px;
+        font-size: 0.4rem;
+        margin-top: 2px;
+        margin-bottom: 2px;
+        padding-bottom: 2px;
+    }
+    #cattle-header .cattle-details .prev span, #cattle-header .cattle-details .next span {
+        font-size: 1.5rem;
+    }
+    .cattle-list .cattle-item {
+        width: 70px;
+        height: 70px;
+    }
+    .cattle-list .cattle-item .holder img {
+        max-width: 60px;
+    }
+}
+@media only screen and (max-width: 32em) {
+    #header {
+        height: 40px;
+    }
+    #small-logo {
+        width: 120px;
+        margin-top: 0px;
+    }
+    #header .mobile-menu {
+        background-size: 20px 15px;
+        padding-left: 24px;
+    }
+    #header .nav {
+        margin: 12px 15px;
+        font-size: 1rem;
+    }
+    #header .menu {
+        top: 40px;
+    }
+    #header .facebook {
+        display: none;
+    }
+    .hero > h1 {
+        font-size: 2.4rem;
+        background: rgba(0, 0, 0, 0.2);
+    }
+    .hero > h1 > img {
+        width: 60px;
+    }
+    #cattle-header .cattle-details {
+        background: rgba(255, 255, 255, 0.2);
+        color: #000000;
+        width: 100%;
+        font-size: 0.7rem;
+        padding: 0;
+        margin-top: 40px;
+        height: auto !important;
+        z-index: 2;
+    }
+    #cattle-header .cattle-details .prev, #cattle-header .cattle-details .next {
+        background: rgba(255, 255, 255, 0.8);
+    }
+    #cattle-header .cattle-details.hide {
+        right: -32em;
+    }
+    .hero .slideshow {
+        z-index: 1;
+    }
 }
 @media only screen and (min-width: 54em) and (max-width: 65em) {
-    #header a {
+    #header .nav {
         font-size: 1.2rem;
-        margin: 28px 10px;
+        margin: 28px 6px;
+    }
+}
+@media only screen and (max-height: 30em) {
+    #header .menu > a {
+        padding: 4px 10px;
     }
 }

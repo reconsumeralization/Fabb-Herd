@@ -7,14 +7,21 @@
 
 namespace templates;
 class cattle {
-    static function BuildOutput() {
+    static function BuildOutput($section='') {
         $tbl = array('c'=>'tbl_cattle');
         $cols = array(
             'c'=>array('*'),
             'p'=>array('url', 'alt')
         );
-        $joins = array(array('table'=>'tbl_cattle_photos', 'as'=>'p', 'on'=>array('p.cattle_id', '=', 'c.id')));
-        $cond = array();
+        $joins = [['table'=>'tbl_cattle_photos', 'as'=>'p', 'on'=>['p.cattle_id', '=', 'c.id']]];
+        $cond = (empty($section)) ? [] : ['c'=>[
+            'join'=>'AND',
+            [
+                'col'=>'section',
+                'operand'=>'=',
+                'value'=>"'$section'"
+            ]
+        ]];
         $limit = array("ORDER BY c.section, c.name ASC");
         $data = \data\collection::buildQuery("SELECT", $tbl, $joins, $cols, $cond, $limit);
         $items = [];
@@ -28,20 +35,16 @@ class cattle {
                     $cattle[$photo['id']]['photos'][] = array('url'=>$photo['url'], 'alt'=>$photo['alt']);
                 }
             }
-        }
-        foreach ($cattle as $i=>$item) {
-            if (!isset($items[$item['section']])) {
-                $items[$item['section']] = [];
+            foreach ($cattle as $i=>$item) {
+                $items[] = \templates\cattle::CattleTitle($i, $item);
             }
-            $items[$item['section']][] = \templates\cattle::CattleTitle($i, $item);
-        }
-        $outp = '';
-        foreach ($items as $section=>$sectionItems) {
-            $outp .= '<h2>'.$section.'</h2>';
-            $outp .= '<ul class="cattle-list">';
-            $outp .= implode('', $sectionItems);
+            $outp = '<ul class="cattle-list">';
+            $outp .= implode('', $items);
             $outp .= '</ul>';
+        } else {
+            $outp = '<p>There are currently no entries for '.str_replace('-', ' ', $section).'.</p>';
         }
+        
         return $outp;
     }
     static function CattleTitle($i, $item) {

@@ -7,6 +7,7 @@ $(document).ready(function() {
             $(this).nextAll('.menu').show();
             $('span', this).text('CLOSE');
         }
+        return false;
     });
     (function() {
         var c = $('<div />');

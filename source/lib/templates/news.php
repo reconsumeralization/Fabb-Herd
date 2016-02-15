@@ -7,7 +7,7 @@
 
 namespace templates;
 class news {
-    static function BuildOutput($offset=0) {
+    static function BuildOutput($url, $offset=0) {
         $tbl = array('n'=>'tbl_news');
         $cols = array(
             'n'=>array('*'),

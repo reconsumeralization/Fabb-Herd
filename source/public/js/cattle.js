@@ -1,8 +1,7 @@
-var preloaded = [], preloadlist = [], curDesc = '', prevDesc = '', prev = null, next = null, curInd = -1;
+var preloaded = [], preloadlist = [], curDesc = '', prevDesc = '', prev = null, next = null, curInd = -1, curCattle = '', curImg = '';
 $(function() {
     // show the first one \\
     $(".cattle-list .cattle-item").click(function() {
-        window.location.hash = $(this).find('a:first').prop('title');
         displayCattle($(this));
     });
     $("h1", "#cattle-header").on('click', 'img', function() {
@@ -17,8 +16,15 @@ $(function() {
     preloadImgIterate(preloadlist);
     // if a hash is provided then lets load the cattle by name \\
     loadCattle(window.location.hash.substring(1));
+    
+    $(window).resize(function() {
+        var curImgSel = curImg;
+        displayCattle(curCattle);
+        displayImage(curImgSel, curInd);
+    });
 });
 function displayCattle(el) {
+    window.location.hash = el.find('a:first').prop('title');
     $("#cattle-header").css({'max-height': 'none'});
     // get a list of icons for the heading bar \\
     var images = el.find('.cattle-info .cattle-images .cattle-img'),
@@ -34,6 +40,7 @@ function displayCattle(el) {
     } else {
         $("h1", "#cattle-header").slideUp();
     }
+    curCattle = el;
 }
 function displayThumbs(images, imgL, catInd) {
     var first = true;
@@ -55,10 +62,11 @@ function displayImage(src, catInd) {
     } else {
         changeImg(source, catInd);
     }
+    curImg = src;
 }
 function descVisible() {
     if ($(".cattle-details", "#cattle-header").length === 0) {
-        $("#cattle-header").append('<div class="cattle-details hide" />');
+        $("#cattle-header").prepend('<div class="cattle-details hide" />');
     }
     return !($(".cattle-details", "#cattle-header").hasClass('hide'));
 }
@@ -77,6 +85,10 @@ function changeImg(source, catInd) {
     var headH = $("#header").height();
     $("> img:first", "#cattle-header").fadeOut(function() {
         $(this).prop('src', source);
+        if ($(this).width() > $(window).width()) {
+            $(this).css('width', '100%');
+            $(this).css('height', 'auto');
+        }
         if ($(this).height() > $(window).height()-(headH*2)) {
             $(this).css('height', $(window).height()-headH);
             $(this).css('width', 'auto');
@@ -84,18 +96,18 @@ function changeImg(source, catInd) {
         } else {
             $(".hero").css({'border-bottom': 'none'});
         }
+        $(this).css('margin-top', headH).addClass('slideshow').fadeIn(function() {displayDesc(source, catInd);});
         if (!$(".cattle-details", "#cattle-header").data('width')) {
             $(".cattle-details", "#cattle-header").data('width', $(".cattle-details", "#cattle-header").width());
         }
         if ($(this).width() < $(document).width() && $(document).width()-$(this).width()-20 > 160) {
-            $(".cattle-details", "#cattle-header").width($(document).width()-$(this).width()-20);
+            $(".cattle-details", "#cattle-header").animate({'width': $(document).width()-$(this).width()-20});
         } else {
             if ($(".cattle-details", "#cattle-header").data('width')) {
-                $(".cattle-details", "#cattle-header").width($(".cattle-details", "#cattle-header").data('width'));
+                $(".cattle-details", "#cattle-header").animate({'width': $(".cattle-details", "#cattle-header").data('width')});
             }
         }
         window.scrollTo(0, 0);
-        $(this).css('margin-top', headH).fadeIn(function() {displayDesc(source, catInd);});
     });
 }
 function preloadImgIterate(list) {
@@ -121,6 +133,9 @@ function displayDesc(source, catInd) {
         prevDesc = curDesc;
     }
     displayNav(source, catInd);
+    if ($("> img:first", "#cattle-header").css('z-index') === '1') {
+        $("> img:first", "#cattle-header").animate({'margin-top': $("#header").height()+$(".cattle-details", "#cattle-header").height()-$(".navigation", "#cattle-header .cattle-details").height()});
+    }
 }
 function displayNav(source, catInd) {
     // find the cattle by index \\
@@ -189,5 +204,7 @@ function displayNav(source, catInd) {
     });
 }
 function loadCattle(target) {
-    displayCattle($("a[title='"+target+"']").parent());
+    if (target !== '') {
+        displayCattle($("a[title='"+target+"']").parent());
+    }
 }
