@@ -22,6 +22,7 @@ $(function() {
         displayCattle(curCattle);
         displayImage(curImgSel, curInd);
     });
+    setInterval(detectWidth, 2000);
 });
 function displayCattle(el) {
     window.location.hash = el.find('a:first').prop('title');
@@ -102,11 +103,10 @@ function changeImg(source, catInd) {
         }
         if ($(this).width() < $(document).width() && $(document).width()-$(this).width()-20 > 160) {
             $(".cattle-details", "#cattle-header").animate({'width': $(document).width()-$(this).width()-20});
-        } else {
-            if ($(".cattle-details", "#cattle-header").data('width')) {
-                $(".cattle-details", "#cattle-header").animate({'width': $(".cattle-details", "#cattle-header").data('width')});
-            }
+        } else if ($(".cattle-details", "#cattle-header").data('width')) {
+            $(".cattle-details", "#cattle-header").animate({'width': $(".cattle-details", "#cattle-header").data('width')});
         }
+        detectWidth();
         window.scrollTo(0, 0);
     });
 }
@@ -206,5 +206,10 @@ function displayNav(source, catInd) {
 function loadCattle(target) {
     if (target !== '') {
         displayCattle($("a[title='"+target+"']").parent());
+    }
+}
+function detectWidth() {
+    if ($(".cattle-details", "#cattle-header").width() > $(document).width()-$("> img:first", "#cattle-header").width()-20) {
+        $(".cattle-details", "#cattle-header").animate({'width': $(document).width()-$("> img:first", "#cattle-header").width()-20});
     }
 }
