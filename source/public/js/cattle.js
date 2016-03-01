@@ -209,7 +209,7 @@ function loadCattle(target) {
     }
 }
 function detectWidth() {
-    if ($(".cattle-details", "#cattle-header").width() > $(document).width()-$("> img:first", "#cattle-header").width()-20) {
-        $(".cattle-details", "#cattle-header").animate({'width': $(document).width()-$("> img:first", "#cattle-header").width()-20});
-    }
+//    if ($(".cattle-details", "#cattle-header").width() > $(document).width()-$("> img:first", "#cattle-header").width()-20) {
+//        $(".cattle-details", "#cattle-header").animate({'width': $(document).width()-$("> img:first", "#cattle-header").width()-20});
+//    }
 }
