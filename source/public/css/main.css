@@ -250,6 +250,7 @@ p {
     padding: 4px;
 }
 .news-holder li h4, .news-holder li h4 a:link, .news-holder li h4 a:active, .news-holder li h4 a:visited {
+    margin: 20px 0;
     font-family: walkway_condensed, Arial, sans-serif;
     font-size: 1.5rem;
     letter-spacing: 0.08rem;

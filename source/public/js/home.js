@@ -18,7 +18,11 @@ $(function() {
 //        }
 //    });
     $("#home-content .hero").append('<ul class="home-news-holder news-holder" />');
-    $.getScript('/js/twitter.config.js');
+    $.getScript('/js/twitter.config.js', function() {
+        if ($(window).height() < $(document).height()) {
+            $("#home-content .hero").css({'min-height': $(document).height()});
+        }
+    });
     $(".news-holder").on('click', 'a.view', function(ev) {
         ev.preventDefault();
         if ($(this).hasClass('visible')) {
