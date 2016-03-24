@@ -18,7 +18,7 @@ class mail {
         require("class.phpmailer.php");
         $this->php_mail = new PHPMailer();
     }
-    public function sendMail($to, $subject, $mailFile, $data='', $from='', $name='', $username='', $password='', $host='localhost') {
+    public function sendMail($to, $subject, $mailFile, $data='', $from='', $name='', $username='', $password='', $host='localhost', $port=25) {
         global $php_mail, $mailConf;
         $mailFile = 'templates/'.$mailFile;
         $output = $this->prepMail($mailFile, $data);
@@ -31,6 +31,7 @@ class mail {
 
         $this->php_mail->IsSMTP();               // set mailer to use SMTP
         $this->php_mail->Host = $host;  // specify main and backup server or localhost
+        $this->php_mail->Port = $port;  // specify the SMTP Port
         $this->php_mail->SMTPAuth = true;     // turn on SMTP authentication
         $this->php_mail->Username = $username;  // SMTP username
         $this->php_mail->Password = $password; // SMTP password

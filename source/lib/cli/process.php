@@ -23,8 +23,8 @@ switch ($action) {
                 if (file_exists($rootDir.DIRECTORY_SEPARATOR.$image['url'])) {
                     $width = 1280;
                     $height = 720;
-                    $tW = 90;
-                    $tH = 60;
+                    $tW = 140;
+                    $tH = 100;
                     $finfo = new \finfo(FILEINFO_MIME_TYPE);
                     $fmime = $finfo->file($rootDir.DIRECTORY_SEPARATOR.$image['url']);
                     $imgResource = \admin\upload::createImageResource(basename($image['url']), $rootDir.DIRECTORY_SEPARATOR.$image['url'], $fmime);

@@ -49,7 +49,7 @@ $info = \admin\cattle::edit($params[0]);
     });
     var dropZone = new Dropzone('div#fileDrop', {
         url: '/admin/upload',
-        headers: {"folder": "cattle/gallery", "size": "1280x720", "thumb": "90x60"}
+        headers: {"folder": "cattle/gallery", "size": "1280x720", "thumb": "140x100"}
     });
     dropZone.on('success', function(file, filename) {
         if (file.status === 'success') {

@@ -15,6 +15,9 @@ $(function() {
         ev.stopPropagation();
         displayImg.apply(this);
     });
+    $(".news-holder li").each(function() {
+        $('.news-story .facebook', this).html(urlify($('.news-story .facebook', this).html()));
+    });
 });
 function displayImg() {
     var lgImg = $(this).clone();

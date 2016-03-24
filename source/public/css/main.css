@@ -80,7 +80,7 @@ body {
 }
 #small-logo {
     position: absolute;
-    width: 245px;
+    width: 165px;
     top: 5px;
     right: 10px;
 }
@@ -233,6 +233,7 @@ p {
 }
 .news-holder li .news-story {
     display: none;
+    word-wrap: break-word;
 }
 .news-photos {
     list-style: none;
@@ -242,6 +243,7 @@ p {
     width: 40%;
     padding: 3px;
     float: left;
+    border: 1px solid #ffffff;
 }
 .news-photos li img {
     width: 100%;
@@ -290,7 +292,7 @@ p {
     width: 200px;
     top: 0;
     height: 100%;
-    padding: 80px 10px 10px;
+    padding: 120px 10px 10px;
     z-index: 1;
 }
 #cattle-header .cattle-details a:link, #cattle-header .cattle-details a:visited {
@@ -356,8 +358,8 @@ p {
 }
 .cattle-list .cattle-item {
     float: left;
-    height: 100px;
-    width: 100px;
+    height: 140px;
+    width: 140px;
     overflow: hidden;
 }
 .cattle-list .cattle-item .holder {
@@ -587,12 +589,8 @@ form .success {
     #cattle-header .cattle-details .prev span, #cattle-header .cattle-details .next span {
         font-size: 1.5rem;
     }
-    .cattle-list .cattle-item {
-        width: 70px;
-        height: 70px;
-    }
     .cattle-list .cattle-item .holder img {
-        max-width: 60px;
+        max-width: 130px;
     }
 }
 @media only screen and (max-width: 32em) {
@@ -633,6 +631,9 @@ form .success {
         margin-top: 40px;
         height: auto !important;
         z-index: 2;
+    }
+    #cattle-header .cattle-details a:link, #cattle-header .cattle-details a:visited {
+        color: #000000;
     }
     #cattle-header .cattle-details .prev, #cattle-header .cattle-details .next {
         background: rgba(255, 255, 255, 0.8);

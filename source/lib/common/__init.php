@@ -411,6 +411,110 @@ class common {
         $filename = str_replace("?","",$filename);
         return $filename;
     }
-}
+    public function fuzzyTimeElapsed($time)
+    {
+        $etime = time() - $time;
+        $time = 'Just now';
+        if ($etime < 0) {
+            $time = 'In '.$time.' seconds';
+        } else if ($etime < 60) {
+            $time = 'A few moments ago';
+        } else if ($etime < 60 * 5) {
+            $time = 'a few minutes ago';
+        } else if ($etime < 60 * 10) {
+            $time = 'about 10 minutes ago';
+        } else if ($etime < (60 * 60)) {
+            $time = 'about an hour ago';
+        } else if ($etime < (60 * 60 * 24)) {
+            $time = 'about a day ago';
+        } else if ($etime < (60 * 60 * 24 * 5)) {
+            $time = 'a few days ago';
+        } else if ($etime < (60 * 60 * 24 * 7)) {
+            $time = 'about a week ago';
+        } else if ($etime < (60 * 60 * 24 * 16)) {
+            $time = 'a couple of weeks ago';
+        } else if ($etime < (60 * 60 * 24 * 25)) {
+            $time = 'a few weeks ago';
+        } else if ($etime < (60 * 60 * 24 * 40)) {
+            $time = 'about a month ago';
+        } else if ($etime < (60 * 60 * 24 * 70)) {
+            $time = 'a couple of months ago';
+        } else if ($etime < (60 * 60 * 24 * 120)) {
+            $time = 'a few months ago';
+        } else if ($etime < (60 * 60 * 24 * 240)) {
+            $time = 'about 6 months ago';
+        } else if ($etime < (60 * 60 * 24 * 500)) {
+            $time = 'a year ago';
+        } else {
+            $time = 'a few years ago';
+        }
+        return $time;
+    }
+    public function dateCalc($date, $format='auto')
+    {
+        $dateObj = \DateTime::createFromFormat('Y-m-d', $date);
+        if ($format === 'auto') {
+            $today = new \DateTime();
+            $diff = $dateObj->diff($today);
+            $dateStr = $dateObj->format('jS M y');
+            if ($diff->d < 1 && $diff->m < 1 && $diff->y < 1) {
+                $format = 'Today';
+            } else if ($diff->d < 3 && $diff->m < 1 && $diff->y < 1) {
+                $dateStr = 'Yesterday';
+            } else if ($diff->d < 7 && $diff->m < 1 && $diff->y < 1) {
+                $dateStr = $dateObj->format('l');
+            } else if ($diff->y < 1) {
+                $dateStr = $dateObj->format('jS M');
+            }
+        } else {
+            $dateStr = $dateObj->format($format);
+        }
+        return $dateStr;
+    }
+    public function GetFacebook()
+    {
+        global $common;
+        $fb = new \Facebook\Facebook([
+            'app_id' => '256694271333014',
+            'app_secret' => '999ea9a56111536821327a4c7f56669f',
+            'default_graph_version' => 'v2.5',
+            'default_access_token' => '256694271333014|999ea9a56111536821327a4c7f56669f', // optional
+        ]);
 
-?>
+        // Use one of the helper classes to get a Facebook\Authentication\AccessToken entity.
+        //   $helper = $fb->getRedirectLoginHelper();
+        //   $helper = $fb->getJavaScriptHelper();
+        //   $helper = $fb->getCanvasHelper();
+        //   $helper = $fb->getPageTabHelper();
+
+        try {
+            // Get the Facebook\GraphNodes\GraphUser object for the current user.
+            // If you provided a 'default_access_token', the '{access-token}' is optional.
+            $response = $fb->get('/584492104929231/feed?limit=8');
+        } catch(\Facebook\Exceptions\FacebookResponseException $e) {
+            // When Graph returns an error
+            var_dump($e);
+            return false;
+        } catch(\Facebook\Exceptions\FacebookSDKException $e) {
+            // When validation fails or other local issues
+            return false;
+        }
+        $feeds = $response->getDecodedBody();
+        if (count($feeds['data']) > 0) {
+            foreach ($feeds['data'] as &$post) {
+                $object = $fb->get('/'.$post['id'].'?fields=object_id');
+                $photoID = $object->getDecodedBody();
+                if (isset($photoID['object_id'])) {
+                    $post['image'] = 'https://graph.facebook.com/'.$photoID['object_id'].'/picture';
+                    $post['image_id'] = $photoID['object_id'];
+                }
+                if (isset($post['message'])) {
+                    $post['description'] = str_replace("\n", '<br />', $common->shorten($post['message'], 100));
+                    $post['message'] = str_replace("\n", '<br />', $post['message']);
+                }
+                $post['created_time'] = $common->fuzzyTimeElapsed(strtotime($post['created_time']));
+            }
+        }
+        return $feeds['data'];
+    }
+}

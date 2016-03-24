@@ -1,0 +1,19 @@
+{
+    "name" : "smg/fabb-herd",
+    "description" : "Fabb Herd website",
+    "homepage" : "http://fabbherd.com",
+    "keywords" : [
+        "Fabb",
+        "Herd",
+        "PHP",
+        "CMS"
+    ],
+    "require": {
+        "facebook/php-sdk-v4": "^5.1"
+    },
+    "minimum-stability" : "beta",
+    "config" : {
+        "preferred-install" : "dist"
+    },
+    "prefer-stable" : true
+}
