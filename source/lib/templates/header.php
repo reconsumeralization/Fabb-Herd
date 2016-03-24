@@ -11,6 +11,7 @@ $section = \data\layout::BuildSection($page);
         <link href="/css/main.css" type="text/css" rel="stylesheet" />
         <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="/js/functions.js"></script>
+        <script type="text/javascript" src="/js/twitterFetcher_min.js"></script>
         <?php
         $rootDir = strstr($common->getParam('DOCUMENT_ROOT', 'server'), 'public', true);
         if ($rootDir === false) {

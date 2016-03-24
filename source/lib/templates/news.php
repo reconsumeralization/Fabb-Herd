@@ -22,7 +22,7 @@ class news {
         $limit = array("ORDER BY n.date DESC", "LIMIT $offset,6");
         
         $data = \data\collection::buildQuery("SELECT", $tbl, $joins, $cols, $cond, $limit);
-        $items = array("left"=>array(), "right"=>array());
+        $items = [];
         $outp = '';
         if ($data[1] > 0) {
             $news = array();
@@ -39,31 +39,16 @@ class news {
             if (is_array($feed)) {
                 foreach ($feed as $post) {
                     if (isset($post['message'])) {
-                        $news[$post['id']] = ['date'=>$post['created_time'], 'title'=>'Facebook', 'description'=>$post['description'], 'story'=>'<span class="facebook">'.$post['message'].'</span>', 'photos'=>(!empty($post['image'])) ? [$post['image_id']=>$post['image']] : []];
+                        $news[$post['id']] = ['date'=>ucfirst($post['created_time']), 'description'=>$post['description'], 'story'=>'<span class="facebook">'.$post['message'].'</span>', 'photos'=>(!empty($post['image'])) ? [$post['image_id']=>$post['image']] : []];
                     }
                 }
             }
-            $x=0;
             foreach ($news as $item) {
-                if (($x+1) % 2 != 0) {
-                    $items['left'][] = \templates\news::NewsItem($item);
-                } else {
-                    $items['right'][] = \templates\news::NewsItem($item);
-                }
-                $x++;
+                $items[] = \templates\news::NewsItem($item);
             }
-            if (!empty($items['left']) && !empty($items['right'])) {
-                $outp = '<div class="left-col even-col"><ul class="news-holder">';
-                $outp .= implode('', $items['left']);
-                $outp .= '</ul></div>';
-                $outp .= '<div class="right-col even-col"><ul class="news-holder">';
-                $outp .= implode('', $items['right']);
-                $outp .= '</ul></div>';
-            } else {
-                $outp = '<ul class="news-holder">';
-                $outp .= implode('', $items['left']);
-                $outp .= '</ul>';
-            }
+            $outp = '<ul class="news-holder">';
+            $outp .= implode('', $items);
+            $outp .= '</ul>';
         }
         return $outp;
     }
@@ -72,6 +57,11 @@ class news {
             $item['date'] = $item['date']->format('d/m/Y');
         } else if ($item['date'] === '0000-00-00'){
             $item['date'] = '';
+        }
+        if (!empty($item['title'])) {
+            $title = "<h4>{$item['title']} - {$item['date']}</h4>";
+        } else {
+            $title = "<h4>{$item['date']}</h4>";
         }
         $photos = '';
         if (isset($item['photos']) && !empty($item['photos'])) {
@@ -83,6 +73,6 @@ class news {
             }
             $photos .= '</ul>';
         }
-        return "<li><h4>{$item['title']} - {$item['date']}</h4><p>{$item['description']}</p><a class=\"view\" href=\"#view\">View more</a><div class=\"news-story\">{$item['story']}$photos</div></li>";
+        return "<li>$title".((isset($item['description'])) ? "<p>{$item['description']}</p><a class=\"view\" href=\"#view\">View more</a><div class=\"news-story\">" : '<div>')."{$item['story']}$photos</div></li>";
     }
 }

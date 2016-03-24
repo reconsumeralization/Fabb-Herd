@@ -1,5 +1,6 @@
 $(function() {
-    $("#news-content a.view").click(function(ev) {
+    $.getScript('/js/twitter.config.js');
+    $("#news-content").on('click', 'a.view', function(ev) {
         ev.preventDefault();
         if ($(this).hasClass('visible')) {
             $(this).next('div').slideUp();

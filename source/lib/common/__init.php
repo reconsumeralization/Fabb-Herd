@@ -202,12 +202,12 @@ class common {
 
         $length = 0;
         $last_part = 0;
+        $shorten = false;
         for (; $last_part < $parts_count; ++$last_part) {
             $length += strlen($parts[$last_part]);
-            if ($length > $your_desired_width) { break; }
+            if ($length > $your_desired_width) { $shorten = true;break; }
         }
-
-        return implode(array_slice($parts, 0, $last_part));
+        return implode(array_slice($parts, 0, $last_part)).(($shorten) ? '...' : '');
     }
 
     public function getAllParam($type='post') {
