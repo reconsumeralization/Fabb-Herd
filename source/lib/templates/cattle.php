@@ -7,7 +7,7 @@
 
 namespace templates;
 class cattle {
-    static function BuildOutput($section='') {
+    static function BuildOutput($section='', $mode='html') {
         $tbl = array('c'=>'tbl_cattle');
         $cols = array(
             'c'=>array('*'),
@@ -35,12 +35,17 @@ class cattle {
                     $cattle[$photo['id']]['photos'][] = array('url'=>$photo['url'], 'alt'=>$photo['alt']);
                 }
             }
-            foreach ($cattle as $i=>$item) {
-                $items[] = \templates\cattle::CattleTitle($i, $item);
+            if ($mode === 'html') {
+                foreach ($cattle as $i=>$item) {
+                    $items[] = \templates\cattle::CattleTitle($i, $item);
+                }
+            
+                $outp = '<ul class="cattle-list">';
+                $outp .= implode('', $items);
+                $outp .= '</ul>';
+            } else if ($mode === 'xml') {
+                $outp = self::XMLImages($cattle);
             }
-            $outp = '<ul class="cattle-list">';
-            $outp .= implode('', $items);
-            $outp .= '</ul>';
         } else {
             $outp = '<p>There are currently no entries for '.str_replace('-', ' ', $section).'.</p>';
         }
@@ -75,5 +80,18 @@ class cattle {
                             '.(!empty($item['video']) ? '<span class="cattle-video" data-src="'.htmlentities($item['video']).'"></span>' : '').'
                     </div>
                 </div>';
+    }
+    static function XMLImages($cattle)
+    {
+        $outp = '';
+        foreach ($cattle as $item) {
+            foreach ($item['photos'] as $photo) {
+                $outp .= '<image:image>';
+                $outp .= '<image:loc>'.www.$photo['url'].'</image:loc>';
+                $outp .= '<image:caption>'.html_entity_decode($item['name'].' - '.strip_tags($item['description'])).'</image:caption>';
+                $outp .= '</image:image>';
+            }
+        }
+        return $outp;
     }
 }

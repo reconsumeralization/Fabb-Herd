@@ -17,14 +17,15 @@ if (debug) {
 }
 $confArray = array();
 $confArray['db'] = array();
-$confArray['db']['user'] = 'root';
-$confArray['db']['password'] = 'root';
+$confArray['db']['user'] = 'fabbherd';
+$confArray['db']['password'] = '^!g5[&yCpM=[';
 $confArray['db']['host'] = 'localhost';
 $confArray['db']['name'] = 'fabbherd';
 
 $common = new common();
 $db = new db($confArray['db']);
 $session = new session("Fabb-Herd");
+define('www', 'http://'.$common->getParam('SERVER_NAME', 'server'));
 require_once 'interface/data.php';
 require_once 'interface/layout.php';
 require_once 'interface/auth.php';

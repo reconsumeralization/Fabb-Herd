@@ -49,6 +49,10 @@ class layout {
                         include '../lib/templates/admin/footer.php';
                     }
                     break;
+                case "sitemap.xml":
+                    header("Content-Type: text/xml");
+                    include '../lib/templates/sitemap.php';
+                    break;
                 default:
                     if ($page[0] === 'index.php' || $page[0] === '') {
                         $page[0] = 'home';
@@ -102,5 +106,26 @@ class layout {
             require_once '../lib/templates/'.$code[1].'.php';
             return call_user_func('\templates\\'.$code[1].'::BuildOutput', self::$subpage);
         }
+    }
+    static function Sitemap()
+    {
+        $pages = \data\handling::GetPages();
+        $outp = '';
+        foreach ($pages as $page) {
+            $outp .= '<url>';
+            $outp .= '<loc>'.www.'/'.$page['url'].'</loc>';
+            if (!empty($page['header'])) {
+                $outp .= '<image:image>';
+                $outp .= '<image:loc>'.www.$page['header'].'</image:loc>';
+                $outp .= '<image:caption>'.$page['title'].'</image:caption>';
+                $outp .= '</image:image>';
+            }
+            if (strstr($page['html'], '{_cattle_}')) {
+                require_once '../lib/templates/cattle.php';
+                $outp .= \templates\cattle::BuildOutput(basename($page['url']), 'xml');
+            }
+            $outp .= '</url>';
+        }
+        return $outp;
     }
 }
