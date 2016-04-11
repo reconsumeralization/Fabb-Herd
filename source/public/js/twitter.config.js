@@ -30,7 +30,9 @@ function handleTweets(tweets) {
         img.find('img').attr('align', 'middle');
         var author = $(".user div a span:eq(1)", obj).html();
         var handle = $(".user div a span:eq(2)", obj).html();
-        html += '<li><h4 class="twitter-head"><a href="'+link+'" target="_blank"><div class="image">'+img.html()+'</div><div class="author">'+author+' - '+handle+'</div></a></h4><p class="twitter-desc">'+obj.find('.tweet').html()+'</p></li>';
+        var dateText = obj.find('.timePosted').text().split('/');
+        var date = new Date(dateText[2]+'/'+dateText[1]+'/'+dateText[0]);
+        html += '<li id="news_'+date.getTime()/1000+'"><h4 class="twitter-head"><a href="'+link+'" target="_blank"><div class="image">'+img.html()+'</div><div class="author">'+author+' - '+handle+'</div></a></h4><p class="twitter-desc">'+obj.find('.tweet').html()+'</p></li>';
         n++;
     }
     elem.append(html);

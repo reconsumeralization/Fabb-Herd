@@ -512,6 +512,7 @@ class common {
                     $post['description'] = str_replace("\n", '<br />', $common->shorten($post['message'], 100));
                     $post['message'] = str_replace("\n", '<br />', $post['message']);
                 }
+                $post['timestamp'] = strtotime($post['created_time']);
                 $post['created_time'] = $common->fuzzyTimeElapsed(strtotime($post['created_time']));
             }
         }

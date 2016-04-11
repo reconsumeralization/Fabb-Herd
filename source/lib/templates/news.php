@@ -28,7 +28,7 @@ class news {
             $news = array();
             foreach ($data[0] as $photo) {
                 if (!isset($news[$photo['id']])) {
-                    $news[$photo['id']] = array('date'=>($photo['date'] === '0000-00-00') ? $photo['date'] : new \DateTime($photo['date']), 'title'=>$photo['title'], 'description'=>$photo['description'], 'story'=>$photo['story'], 'photos'=>array());
+                    $news[$photo['id']] = array('date'=>($photo['date'] === '0000-00-00') ? $photo['date'] : new \DateTime($photo['date']), 'timestamp'=>strtotime($photo['date']), 'title'=>$photo['title'], 'description'=>$photo['description'], 'story'=>$photo['story'], 'photos'=>array());
                 }
                 if (!is_null($photo['url'])) {
                     $news[$photo['id']]['photos'][$photo['photo_id']] = $photo['url'];
@@ -39,7 +39,7 @@ class news {
             if (is_array($feed)) {
                 foreach ($feed as $post) {
                     if (isset($post['message'])) {
-                        $news[$post['id']] = ['date'=>ucfirst($post['created_time']), 'description'=>$post['description'], 'story'=>'<span class="facebook">'.$post['message'].'</span>', 'photos'=>(!empty($post['image'])) ? [$post['image_id']=>$post['image']] : []];
+                        $news[$post['id']] = ['date'=>ucfirst($post['created_time']), 'timestamp'=>$post['timestamp'], 'description'=>$post['description'], 'story'=>'<span class="facebook">'.$post['message'].'</span>', 'photos'=>(!empty($post['image'])) ? [$post['image_id']=>$post['image']] : []];
                     }
                 }
             }
@@ -73,6 +73,6 @@ class news {
             }
             $photos .= '</ul>';
         }
-        return "<li>$title".((isset($item['description'])) ? "<p>{$item['description']}</p><a class=\"view\" href=\"#view\">View more</a><div class=\"news-story\">" : '<div>')."{$item['story']}$photos</div></li>";
+        return "<li id=\"news_{$item['timestamp']}\">$title".((isset($item['description'])) ? "<p>{$item['description']}</p><a class=\"view\" href=\"#view\">View more</a><div class=\"news-story\">" : '<div>')."{$item['story']}$photos</div></li>";
     }
 }
