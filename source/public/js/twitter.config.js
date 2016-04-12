@@ -36,5 +36,24 @@ function handleTweets(tweets) {
         n++;
     }
     elem.append(html);
+    var news = elem;
+    var items = news.children('li'),
+        itemArr = [];
+    items.each(function() {
+        itemArr.push($(this));
+    });
+    news.empty();
+    itemArr.sort(function(a, b) {
+        var timea = $(a).prop('id').split('news_')[1],
+            timeb = $(b).prop('id').split('news_')[1];
+        if (parseInt(timea) < parseInt(timeb)) {
+            return 1;
+        }
+        if (parseInt(timea) > parseInt(timeb)) {
+            return -1;
+        }
+        return 0;
+    });
+    news.append(itemArr);
 }
 twitterFetcher.fetch(twitConfig);

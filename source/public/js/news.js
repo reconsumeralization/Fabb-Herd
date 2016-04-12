@@ -19,20 +19,6 @@ $(function() {
     $(".news-holder li").each(function() {
         $('.news-story .facebook', this).html(urlify($('.news-story .facebook', this).html()));
     });
-    var news = $(".news-holder");
-    var items = news.children('li');
-    items.sort(function(a, b) {
-        var timea = $(a).prop('id').split('news_')[1],
-            timeb = $(b).prop('id').split('news_')[1];
-        if (parseInt(timea) > parseInt(timeb)) {
-            return 1;
-        }
-        if (parseInt(timea) < parseInt(timeb)) {
-            return -1;
-        }
-        return 0;
-    });
-    items.detach().appendTo(news);
 });
 function displayImg() {
     var lgImg = $(this).clone();
