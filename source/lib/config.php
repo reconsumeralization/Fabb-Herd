@@ -17,8 +17,8 @@ if (debug) {
 }
 $confArray = array();
 $confArray['db'] = array();
-$confArray['db']['user'] = 'fabbherd';
-$confArray['db']['password'] = '^!g5[&yCpM=[';
+$confArray['db']['user'] = 'root';
+$confArray['db']['password'] = 'root';
 $confArray['db']['host'] = 'localhost';
 $confArray['db']['name'] = 'fabbherd';
 

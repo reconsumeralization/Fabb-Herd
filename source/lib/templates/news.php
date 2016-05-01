@@ -39,7 +39,7 @@ class news {
             if (is_array($feed)) {
                 foreach ($feed as $post) {
                     if (isset($post['message'])) {
-                        $news[$post['id']] = ['date'=>ucfirst($post['created_time']), 'timestamp'=>$post['timestamp'], 'description'=>$post['description'], 'story'=>'<span class="facebook">'.$post['message'].'</span>', 'photos'=>(!empty($post['image'])) ? [$post['image_id']=>$post['image']] : []];
+                        $news[$post['id']] = ['date'=>'<div class="image"><img src="/img/Facebook-icon.png" alt="Facebook" width="40"></div><div class="author">'.ucfirst($post['created_time']).'</div>', 'timestamp'=>$post['timestamp'], 'description'=>$post['description'], 'story'=>'<span class="facebook">'.$post['message'].'</span>', 'photos'=>(!empty($post['image'])) ? [$post['image_id']=>$post['image']] : []];
                     }
                 }
             }

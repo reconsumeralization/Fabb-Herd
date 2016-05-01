@@ -39,13 +39,15 @@ class page {
         if ($info->id === -1) {
             // means its new \\
             $info->title = 'New Page';
+            $info->page_title = 'New Page';
             $info->url = 'new-page';
+            $info->description = '';
             $info->html = '<p>Your content goes here</p>';
             $info->header = '';
         } else {
             // means we need to get some data \\
             $tbl = array('p'=>'tbl_pages');
-            $cols = array('p'=>array('id', 'title', 'url', 'html', 'header'));
+            $cols = array('p'=>array('id', 'title', 'page_title', 'url', 'description', 'html', 'header'));
             $cond = array(
                 'p'=>array(
                     "join"=>'AND',
@@ -59,7 +61,9 @@ class page {
             $data = \data\collection::buildQuery("SELECT", $tbl, array(), $cols, $cond, array('LIMIT 1'));
             if ($data[1] > 0) {
                 $info->title = $data[0][0]['title'];
+                $info->page_title = $data[0][0]['page_title'];
                 $info->url = $data[0][0]['url'];
+                $info->description = $data[0][0]['description'];
                 $info->html = $data[0][0]['html'];
                 $info->header = $data[0][0]['header'];
             }
@@ -71,7 +75,9 @@ class page {
         if (!is_null($common->getParam('submitted'))) {
             $id = (int)$common->getParam('id');
             $title = $common->getParam('title');
+            $pagetitle = $common->getParam('page_title');
             $url = $common->getParam('url');
+            $description = $common->getParam('description');
             $html = $common->getParam('html');
             $header = $common->getParam('header', 'file');
             $move = $common->getParam('old_header');
@@ -89,7 +95,9 @@ class page {
                 $info = array(
                     'fields'=>array(
                         'title'=>$title,
+                        'page_title'=>$pagetitle,
                         'url'=>$url,
+                        'description'=>$description,
                         'html'=>$html,
                         'header'=>$move
                     ),

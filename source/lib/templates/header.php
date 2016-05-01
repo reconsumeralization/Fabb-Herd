@@ -4,20 +4,20 @@ $section = \data\layout::BuildSection($page);
 <!DOCTYPE html>
 <html>
     <head>
-        <title>The FABB Herd<?php echo ($section['title'] !== 'Home') ? ' - '.$section['title'] : ''; ?></title>
+        <title><?php echo (isset($section['page_title'])) ? $section['page_title'] : $section['title']; ?></title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="google-site-verification" content="-8Y1xbfw5lvasWymBFg051eq6Xw122iKD0Aukx5vmqs" />
+        <meta name="description" content="<?php echo (isset($section['description'])) ? $section['description'] : ''; ?>">
         <link href="/css/main.css" type="text/css" rel="stylesheet" />
         <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="/js/functions.js"></script>
         <script type="text/javascript" src="/js/twitterFetcher_min.js"></script>
         <?php
-        $rootDir = strstr($common->getParam('DOCUMENT_ROOT', 'server'), 'public', true);
+        $rootDir = strstr($common->getParam('DOCUMENT_ROOT', 'server'), 'public_html', true);
         if ($rootDir === false) {
             $rootDir = $common->getParam('DOCUMENT_ROOT', 'server');
         }
-        if (file_exists($rootDir.DIRECTORY_SEPARATOR.'public'.DIRECTORY_SEPARATOR.'js'.DIRECTORY_SEPARATOR.$page[0].'.js')) {
+        if (file_exists($rootDir.DIRECTORY_SEPARATOR.'public_html'.DIRECTORY_SEPARATOR.'js'.DIRECTORY_SEPARATOR.$page[0].'.js')) {
             ?>
         <script type="text/javascript" src="/js/<?php echo $page[0]; ?>.js"></script>
         <?php

@@ -77,17 +77,17 @@ class layout {
         global $common;
         $data['url'] = explode('/', $data['url'])[0];
         if (!empty($data['header'])) {
-            $rootDir = strstr($common->getParam('DOCUMENT_ROOT', 'server'), 'public', true);
+            $rootDir = strstr($common->getParam('DOCUMENT_ROOT', 'server'), 'public_html', true);
             if ($rootDir === false) {
                 $rootDir = $common->getParam('DOCUMENT_ROOT', 'server');
             }
         }
         $outp = '<div id="'.$data['url'].'-content" class="container">';
         if ($data['url'] === 'home') {
-            $outp .= '<div class="hero" '.((!empty($data['header']) && file_exists($rootDir.DIRECTORY_SEPARATOR.'public'.DIRECTORY_SEPARATOR.$data['header'])) ? 'style="background-image: url('.$data['header'].');"' : '').'>'.$data['html'].'</div>';
+            $outp .= '<div class="hero" '.((!empty($data['header']) && file_exists($rootDir.DIRECTORY_SEPARATOR.'public_html'.DIRECTORY_SEPARATOR.$data['header'])) ? 'style="background-image: url('.$data['header'].');"' : '').'>'.$data['html'].'</div>';
         } else {
             $data['html'] = preg_replace_callback('/{_([a-zA-Z0-9\/_]*)_}/', '\data\layout::CodeReplacer', $data['html']);
-            $outp .= '<div class="hero" id="'.$data['url'].'-header">'.((!empty($data['header']) && file_exists($rootDir.DIRECTORY_SEPARATOR.'public'.DIRECTORY_SEPARATOR.$data['header'])) ? '<img src="'.$data['header'].'" alt="'.$data['title'].'" />' : '').'
+            $outp .= '<div class="hero" id="'.$data['url'].'-header">'.((!empty($data['header']) && file_exists($rootDir.DIRECTORY_SEPARATOR.'public_html'.DIRECTORY_SEPARATOR.$data['header'])) ? '<img src="'.$data['header'].'" alt="'.$data['title'].'" />' : '').'
                 <h1>'.$data['title'].'</h1>
             </div>
             <div class="content">
