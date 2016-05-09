@@ -18,6 +18,9 @@ $(document).ready(function() {
     $(".show_list [id^='new']").click(function() {
         window.location = '/admin/show/edit/-1';
     });
+    $(".posts_list [id^='new']").click(function() {
+        window.location = '/admin/posts/edit/-1';
+    });
     $(".delete").click(function() {
         var id = $(this).data('id'),
             type = $(this).parent().parent().parent().prop('class').split('_list')[0],

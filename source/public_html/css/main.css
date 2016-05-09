@@ -159,6 +159,9 @@ p {
     overflow: hidden;
     font-family: 'Trebuchet MS', Arial;
 }
+.container .content .date_posted {
+    text-align: right;
+}
 #home-content .hero {
     max-height: none;
     background: no-repeat top center;
@@ -212,7 +215,7 @@ p {
 #home-content h3 span {
     font-size: 2em;
 }
-.news-holder {
+.news-holder, .post-holder {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -221,7 +224,7 @@ p {
     width: 90%;
     margin: 150px auto 0;
 }
-.news-holder > li {
+.news-holder > li, .post-holder > li {
     background: #fafafa;
     border: 1px solid #dddddd;
     margin: 1%;
@@ -241,15 +244,15 @@ p {
     height: 110px;
     min-height: 110px;
 }
-.news-holder > li > ul {
+.news-holder > li > ul, .post-holder > li > ul {
     margin: 0;
     padding: 4px;
 }
-.news-holder > li > ul li {
+.news-holder > li > ul li, .post-holder > li > ul li {
     margin: 4px;
     padding: 4px;
 }
-.news-holder li h4, .news-holder li h4 a:link, .news-holder li h4 a:active, .news-holder li h4 a:visited {
+.news-holder li h4, .news-holder li h4 a:link, .news-holder li h4 a:active, .news-holder li h4 a:visited, .post-holder li h4, .post-holder li h4 a:link, .post-holder li h4 a:active, .post-holder li h4 a:visited {
     margin: 20px 0;
     font-family: walkway_condensed, Arial, sans-serif;
     font-size: 1.5rem;
@@ -257,14 +260,14 @@ p {
     color: #0d650d;
     text-decoration: none;
 }
-.news-holder li h4 a:hover {
+.news-holder li h4 a:hover, .post-holder li h4 a:hover {
     text-decoration: underline;
 }
-.news-holder li p {
+.news-holder li p, .post-holder li p {
     margin: 0;
     padding: 4px 0;
 }
-.news-holder li a:link {
+.news-holder li a:link, .post-holder li a:link, .news-holder li a:visited, .post-holder li a:visited {
     color: #036600;
     font-family: 'Trebuchet MS', Arial, sans-serif;
     font-size: 0.95rem;

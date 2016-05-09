@@ -19,7 +19,8 @@
                 <a href="/admin/page">Pages</a>
                 <a href="/admin/news">News</a>
                 <a href="/admin/cattle">Cattle</a>
-                <a href="/admin/show">Shows</a>
+                <!--<a href="/admin/show">Shows</a>-->
+                <a href="/admin/posts">Posts</a>
                 <?php
                 }
                 ?>

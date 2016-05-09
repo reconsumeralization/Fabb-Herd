@@ -30,6 +30,9 @@ class delete {
                 case "news":
                     $ret = ["status"=>\admin\delete::del_news($common->getParam('id'))];
                     break;
+                case "post":
+                    $ret = ["status"=>self::del_post($common->getParam('id'))];
+                    break;
             }
         }
         return $ret;
@@ -65,13 +68,22 @@ class delete {
         return \data\collection::buildQuery("DELETE", $data);
     }
     private static function del_news($id) {
-        // delete the provided cattle \\
+        // delete the provided news \\
         $data = [
             "tbl_news"=>[
                 "id"=>$id
             ],
             "tbl_news_photos"=>[
                 "news_id"=>$id
+            ]
+        ];
+        return \data\collection::buildQuery("DELETE", $data);
+    }
+    private static function del_post($id) {
+        // delete the provided post \\
+        $data = [
+            "tbl_posts"=>[
+                "id"=>$id
             ]
         ];
         return \data\collection::buildQuery("DELETE", $data);

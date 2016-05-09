@@ -53,6 +53,13 @@ class layout {
                     header("Content-Type: text/xml");
                     include '../lib/templates/sitemap.php';
                     break;
+                case "blog":
+                    if (!empty($page[1])) {
+                        $blog = true;
+                        include '../lib/templates/header.php';
+                        include '../lib/templates/footer.php';
+                        break;
+                    }
                 default:
                     if ($page[0] === 'index.php' || $page[0] === '') {
                         $page[0] = 'home';

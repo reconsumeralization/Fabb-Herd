@@ -1,5 +1,10 @@
 <?php
-$section = \data\layout::BuildSection($page);
+if (!isset($blog) || !$blog) {
+    $section = \data\layout::BuildSection($page);
+} else {
+    require_once 'posts.php';
+    $section = \templates\posts::BlogPost($page);
+}
 ?>
 <!DOCTYPE html>
 <html>

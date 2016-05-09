@@ -101,26 +101,26 @@ p {
 #content {
     margin-top: 100px;
 }
-.page_list, .news_list, .cattle_list, .show_list {
+.page_list, .news_list, .cattle_list, .show_list, .posts_list {
     margin: 6px;
     padding: 0;
     list-style: none;
 }
-.page_list li, .news_list li, .cattle_list li, .show_list li {
+.page_list li, .news_list li, .cattle_list li, .show_list li, .posts_list li {
     background: #fafafa;
     border-radius: 3px;
     border: 1px solid #dddddd;
     padding: 5px;
     margin: 10px 0;
 }
-.page_list li:hover, .news_list li:last-child:hover, .cattle_list li:last-child:hover, .show_list li:last-child:hover {
+.page_list li:hover, .news_list li:last-child:hover, .cattle_list li:last-child:hover, .show_list li:last-child:hover, .posts_list li:last-child:hover {
     cursor: pointer;
     background: #ffffff;
 }
-.page_list li .html_preview {
+.page_list li .html_preview, .posts_list li .html_preview {
     display: none;
 }
-.page_list li .html_preview.visible {
+.page_list li .html_preview.visible, .posts_list li .html_preview.visible {
     display: block;
 }
 .content form input[type='submit'], .content form input[type='reset'], .content form input[type='button'] {

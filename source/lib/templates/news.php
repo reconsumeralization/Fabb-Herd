@@ -34,7 +34,8 @@ class news {
                     $news[$photo['id']]['photos'][$photo['photo_id']] = $photo['url'];
                 }
             }
-            
+            require_once 'posts.php';
+            $blog = \templates\posts::BuildOutput($url, $offset, true);
             $feed = $common->GetFacebook();
             if (is_array($feed)) {
                 foreach ($feed as $post) {
@@ -45,6 +46,11 @@ class news {
             }
             foreach ($news as $item) {
                 $items[] = \templates\news::NewsItem($item);
+            }
+            if (is_array($blog)) {
+                foreach ($blog as $post) {
+                    $items[] = $post;
+                }
             }
             $outp = '<ul class="news-holder">';
             $outp .= implode('', $items);
