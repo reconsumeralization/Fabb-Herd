@@ -137,6 +137,14 @@ p {
     display: block;
     position: relative;
 }
+.hero.notfound {
+    height: 100vh;
+    max-height: 100vh;
+}
+.hero.notfound > img {
+    height: 100vh;
+    object-fit: cover;
+}
 .hero > img.preload {
     
 }
@@ -152,6 +160,15 @@ p {
     margin: 0;
     width: 100%;
     z-index: 3;
+}
+.hero.notfound > h1 {
+    color: #ffffff;
+    font-family: walkway_condensed, Arial, sans-serif;
+    font-size: 3.2rem;
+    letter-spacing: 0.06rem;
+    top: 45vh;
+    padding: 1rem;
+    background: none;
 }
 .container .content {
     background: #ffffff;

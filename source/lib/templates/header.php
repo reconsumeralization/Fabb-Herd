@@ -5,6 +5,10 @@ if (!isset($blog) || !$blog) {
     require_once 'posts.php';
     $section = \templates\posts::BlogPost($page);
 }
+if (empty($section)) {
+    $notfound = \data\layout::PageNotFound();
+    $section = ['title'=> 'Whoops! Page Not Found'];
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -45,4 +49,13 @@ if (!isset($blog) || !$blog) {
             <div id="small-logo"><?php echo ($section['title'] !== 'Home') ? '<a class="home" href="/"><img src="/img/logo-web.png" alt="The Fabb Herd" width="100%" /></a>' : ''; ?></div>
         </div>
         <?php
-        echo \data\layout::PageTemplate($section);
+        if (isset($notfound)) {
+            ?>
+        <div class="hero notfound">
+            <img src="/img/home-bg.jpg" alt="Page Not Found" />
+            <h1>Whoops! (404) We can&apos;t find the page you were looking for.</h1>
+        </div>
+        <?php
+        } else {
+            echo \data\layout::PageTemplate($section);
+        }

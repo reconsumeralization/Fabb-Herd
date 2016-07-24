@@ -135,4 +135,9 @@ class layout {
         }
         return $outp;
     }
+    static function PageNotFound()
+    {
+        http_response_code(404);
+        return true;
+    }
 }
