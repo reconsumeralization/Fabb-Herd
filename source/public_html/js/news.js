@@ -17,6 +17,7 @@ $(function() {
         displayImg.apply(this);
     });
     $(".news-holder li").each(function() {
+        $('> p', this).html(urlify($('> p', this).html()));
         $('.news-story .facebook', this).html(urlify($('.news-story .facebook', this).html()));
     });
 });

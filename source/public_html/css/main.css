@@ -219,6 +219,8 @@ p {
     list-style: none;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-wrap: wrap;
 }
 .home-news-holder {
     width: 90%;
@@ -241,7 +243,6 @@ p {
     border-bottom: 1px solid #dddddd;
     padding: 2px;
     width: 31%;
-    height: 110px;
     min-height: 110px;
 }
 .news-holder > li > ul, .post-holder > li > ul {
@@ -266,6 +267,7 @@ p {
 .news-holder li p, .post-holder li p {
     margin: 0;
     padding: 4px 0;
+    word-wrap: break-word;
 }
 .news-holder li a:link, .post-holder li a:link, .news-holder li a:visited, .post-holder li a:visited {
     color: #036600;
@@ -294,8 +296,11 @@ p {
     width: auto;
 }
 .news-holder li .twitter-desc {
-    max-height: 45px;
-    overflow: hidden;
+    
+}
+.news-holder li .twitter-desc img {
+    width: 32px;
+    margin: 2px;
 }
 .news-photos {
     list-style: none;
