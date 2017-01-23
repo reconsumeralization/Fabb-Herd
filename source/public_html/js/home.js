@@ -1,7 +1,7 @@
 $(function() {
     $("#home-content .hero").css({'min-height': $(window).height()});
-    if ($(window).height() < $(document).height()) {
-        $("#home-content .hero").css({'min-height': $(document).height()});
+    if ($(window).height() < $(document).height()-$("footer").height()) {
+        $("#home-content .hero").css({'min-height': $(document).height()-$("footer").height()});
     }
 //    $("#home-content .hero").append('<a href="#scroll" class="home-scroll"><img src="/img/down-arrow.png" width="50" /></a>');
 //    $(".home-scroll").click(function(ev) {
@@ -19,8 +19,8 @@ $(function() {
 //    });
     $("#home-content .hero").append('<ul class="home-news-holder news-holder" />');
     $.getScript('/js/twitter.config.js', function() {
-        if ($(window).height() < $(document).height()) {
-            $("#home-content .hero").css({'min-height': $(document).height()});
+        if ($(window).height() < $(document).height()-$("footer").height()) {
+            $("#home-content .hero").css({'min-height': $(document).height()-$("footer").height()});
         }
     });
     $(".news-holder").on('click', 'a.view', function(ev) {

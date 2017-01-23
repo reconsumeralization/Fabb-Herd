@@ -8,7 +8,7 @@
 namespace templates;
 require_once __DIR__.'/../../vendor/autoload.php';
 class posts {
-    static function BuildOutput($url, $offset=0, $inline=false) {
+    static function BuildOutput($url, $offset=0, $inline=false, $mode='html') {
         global $common;
         $tbl = array('p'=>'tbl_posts');
         $cols = array(
@@ -24,7 +24,7 @@ class posts {
             $posts = $data[0];
             
             foreach ($posts as $post) {
-                $items[] = self::BlogItem($post);
+                $items[] = self::BlogItem($post, $mode);
             }
             if ($inline) {
                 return $items;
@@ -35,7 +35,7 @@ class posts {
         }
         return $outp;
     }
-    static function BlogItem($item) {
+    static function BlogItem($item, $mode='html') {
         if (is_a($item['date'], 'DateTime')) {
             $item['date'] = $item['date']->format('d/m/Y');
         } else if ($item['date'] === '0000-00-00'){
@@ -46,7 +46,11 @@ class posts {
         } else {
             $title = "<h4>{$item['date']}</h4>";
         }
-        return "<li id=\"news_".strtotime($item['date_added'])."\">$title".((isset($item['description'])) ? "<p>{$item['description']}</p>" : "")."<a href=\"/blog/{$item['url']}\">View post</a></li>";
+        if ($mode === 'html') {
+            return "<li id=\"news_".strtotime($item['date_added'])."\">$title".((isset($item['description'])) ? "<p>{$item['description']}</p>" : "")."<a href=\"/blog/{$item['url']}\">View post</a></li>";
+        } else if ($mode === 'xml') {
+            return $item;
+        }
     }
     static function BlogPost($page)
     {

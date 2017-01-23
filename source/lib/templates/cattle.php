@@ -45,6 +45,11 @@ class cattle {
                 $outp .= '</ul>';
             } else if ($mode === 'xml') {
                 $outp = self::XMLImages($cattle);
+            } else if ($mode === 'footer') {
+                foreach ($cattle as $i=>$item) {
+                    $items[] = \templates\cattle::CattleTitle($i, $item, 'footer');
+                }
+                $outp = implode('', $items);
             }
         } else {
             $outp = '<p>There are currently no entries for '.str_replace('-', ' ', $section).'.</p>';
@@ -52,8 +57,12 @@ class cattle {
         
         return $outp;
     }
-    static function CattleTitle($i, $item) {
-        return '<li class="cattle-item" id="icon-'.$item['id'].'"><a title="'.str_replace(' ', '-', $item['name']).'"></a><span class="holder"><img '.((empty($item['icon'])) ? ((!empty($item['photos'][0])) ? 'src="'.str_replace('/img/', '/thumbs/', $item['photos'][0]['url']).'"' : 'src="/img/cattle/default.png" class="default"') : 'src="'.$item['icon'].'"').' alt="'.$item['name'].'" /></span>'.\templates\cattle::CattleDescription($item).'</li>';
+    static function CattleTitle($i, $item, $mode='html') {
+        if ($mode === 'html') {
+            return '<li class="cattle-item" id="icon-'.$item['id'].'"><a title="'.str_replace(' ', '-', $item['name']).'"></a><span class="holder"><img '.((empty($item['icon'])) ? ((!empty($item['photos'][0])) ? 'src="'.str_replace('/img/', '/thumbs/', $item['photos'][0]['url']).'"' : 'src="/img/cattle/default.png" class="default"') : 'src="'.$item['icon'].'"').' alt="'.$item['name'].'" /></span>'.\templates\cattle::CattleDescription($item).'</li>';
+        } else if ($mode === 'footer') {
+            return '<a href="/cattle/'.$item['section'].'#'.str_replace(' ', '-', $item['name']).'">'.$item['name'].'</a>';
+        }
     }
     static function CattleDescription($item) {
         global $common;

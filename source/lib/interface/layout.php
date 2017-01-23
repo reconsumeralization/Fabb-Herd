@@ -120,18 +120,27 @@ class layout {
         $outp = '';
         foreach ($pages as $page) {
             $outp .= '<url>';
-            $outp .= '<loc>'.www.'/'.$page['url'].'</loc>';
-            if (!empty($page['header'])) {
-                $outp .= '<image:image>';
-                $outp .= '<image:loc>'.www.$page['header'].'</image:loc>';
-                $outp .= '<image:caption>'.$page['title'].'</image:caption>';
-                $outp .= '</image:image>';
-            }
-            if (strstr($page['html'], '{_cattle_}')) {
-                require_once '../lib/templates/cattle.php';
-                $outp .= \templates\cattle::BuildOutput(basename($page['url']), 'xml');
-            }
+            $outp .= '<loc>'.www.'/'.(($page['url'] !== 'home') ? $page['url'] : '').'</loc>';
+//            if (!empty($page['header'])) {
+//                $outp .= '<image:image>';
+//                $outp .= '<image:loc>'.www.$page['header'].'</image:loc>';
+//                $outp .= '<image:caption>'.$page['title'].'</image:caption>';
+//                $outp .= '</image:image>';
+//            }
+//            if (strstr($page['html'], '{_cattle_}')) {
+//                require_once '../lib/templates/cattle.php';
+//                $outp .= \templates\cattle::BuildOutput(basename($page['url']), 'xml');
+//            }
             $outp .= '</url>';
+            if ($page['url'] === 'blog') {
+                require_once '../lib/templates/posts.php';
+                $posts = \templates\posts::BuildOutput($page, 0, true, 'xml');
+                foreach ($posts as $blog) {
+                    $outp .= '<url>';
+                    $outp .= '<loc>'.www.'/'.$page['url'].'/'.$blog['url'].'</loc>'; 
+                    $outp .= '</url>';
+                }
+            }
         }
         return $outp;
     }

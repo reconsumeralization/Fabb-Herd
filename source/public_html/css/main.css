@@ -222,7 +222,7 @@ p {
 #home-content h3 {
     font-family: walkway_condensed, Arial, sans-serif;
     margin: 0 auto 0;
-    padding-bottom: 10px;
+    padding: 4px 8px 10px;
     text-align: center;
     color: #ffffff;
     font-size: 2.2rem;
@@ -238,6 +238,7 @@ p {
     padding: 0;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 .home-news-holder {
     width: 90%;
@@ -259,7 +260,6 @@ p {
     border: none;
     border-bottom: 1px solid #dddddd;
     padding: 2px;
-    width: 31%;
     min-height: 110px;
 }
 .news-holder > li > ul, .post-holder > li > ul {
@@ -614,6 +614,41 @@ form .error {
 form .success {
     font-size: 1.2rem;
     color: #036600;
+}
+footer {
+    border-top: 1px solid #a6b092;
+    background: #fafafa;
+    padding: 0 0.4rem;
+    display: flex;
+    justify-content: space-around;
+}
+footer .footer-section {
+    
+}
+footer .footer-section h4 {
+    color: #333333;
+    font-family: walkway_condensed, Arial, sans-serif;
+    font-size: 2.2rem;
+    text-decoration: none;
+    font-weight: bold;
+    padding-bottom: 0.1rem;
+    margin-bottom: 1rem;
+}
+footer .footer-section p {
+    color: #0d6506;
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: lighter;
+    text-align: center;
+}
+footer .footer-section a:link, footer .footer-section a:active, footer .footer-section a:visited {
+    color: #333333;
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    font-size: 1rem;
+    text-decoration: none;
+}
+footer .footer-section a:hover {
+    text-decoration: underline;
 }
 @media only screen and (max-width: 53.99em) {
     #header .mobile-menu {

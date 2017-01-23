@@ -1,6 +1,17 @@
 <IfModule mod_rewrite.c>
 RewriteEngine On
 
+RewriteCond %{HTTP_HOST} ^fabbherd\.co\.uk [OR]
+RewriteCond %{HTTP_HOST} ^www\.fabbherd\.co\.uk [OR]
+RewriteCond %{HTTP_HOST} ^www\.fabbherd\.com
+RewriteRule ^(.*)$ "http\:\/\/fabbherd\.com/$1" [R=301,L]
+
+RewriteCond %{THE_REQUEST} ^.*/index\.php
+RewriteRule ^(.*)index.php$ /$1 [R=301,L] 
+
+RewriteCond %{THE_REQUEST} ^.*/home
+RewriteRule ^(.*)home$ /$1 [R=301,L] 
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
  
