@@ -13,13 +13,18 @@
 namespace admin;
 $opts['xhr'] = true;
 class upload {
+    static $video = ['mp4', 'mov', 'm4v', 'wmv'];
+    static $image = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
     static function upload() {
         global $common;
+        $allowed = self::$video+self::$image;
         if (!is_null($common->getParam('file', 'file'))) {
             $file = $common->getParam('file', 'file');
             $dir = $common->getParam('HTTP_FOLDER', 'server');
             $thumb = $common->getParam('HTTP_THUMB', 'server');
             $size = $common->getParam('HTTP_SIZE', 'server');
+            $file_info = pathinfo($file['name']);
+            $video = false;
             if (!is_null($size)) {
                 $target_path = $dir . DIRECTORY_SEPARATOR;
                 $file_name =  time().'-'.$file['name'];
@@ -45,34 +50,78 @@ class upload {
                 $thumbImg = $thumbResource['img'];
                 $cW = $imgResource['width'];
                 $cH = $imgResource['height'];
-                if ($img) {
-                    // full image \\
-                    $imageResized = self::resizeImage($width, $height, $img, $cW, $cH);
-                    $resp['error'] = (self::saveImage($imageResized, $common->getParam('DOCUMENT_ROOT', 'server').DIRECTORY_SEPARATOR.'img'.DIRECTORY_SEPARATOR.$target_path.$file_name, 50)) ? false : true;
-                    if (!$resp['error']) {
-                        $resp['filename'] = $file_name;
-                        // thumb \\
-                        $thumbResized = self::resizeImage($tW, $tH, $thumbImg, $cW, $cH);
-                        $resp['error'] = (self::saveImage($thumbResized, $common->getParam('DOCUMENT_ROOT', 'server').DIRECTORY_SEPARATOR.'thumbs'.DIRECTORY_SEPARATOR.$target_path.$file_name, 50)) ? false : true;
-                        if ($resp['error']) {
-                            $resp['message'] = 'Thumb could not be generated';
+                
+                
+                if (in_array(strtolower($file_info['extension']), $allowed)) {
+                    if ($img) {
+                        // full image \\
+                        $imageResized = self::resizeImage($width, $height, $img, $cW, $cH);
+                        $resp['error'] = (self::saveImage($imageResized, $common->getParam('DOCUMENT_ROOT', 'server').DIRECTORY_SEPARATOR.'img'.DIRECTORY_SEPARATOR.$target_path.$file_name, 50)) ? false : true;
+                        if (!$resp['error']) {
+                            $resp['filename'] = $file_name;
+                            // thumb \\
+                            $thumbResized = self::resizeImage($tW, $tH, $thumbImg, $cW, $cH);
+                            $resp['error'] = (self::saveImage($thumbResized, $common->getParam('DOCUMENT_ROOT', 'server').DIRECTORY_SEPARATOR.'thumbs'.DIRECTORY_SEPARATOR.$target_path.$file_name, 50)) ? false : true;
+                            if ($resp['error']) {
+                                $resp['message'] = 'Thumb could not be generated';
+                            }
+                        } else {
+                            $resp['message'] = 'Image could not be saved'; 
                         }
-                    } else {
-                        $resp['message'] = 'Image could not be saved'; 
+                    } else if (in_array(strtolower($file_info['extension']), self::$video)) {
+                        $video = true;
+                        $video_web = DIRECTORY_SEPARATOR.'videos'.DIRECTORY_SEPARATOR.'encoded'.DIRECTORY_SEPARATOR.$target_path.urldecode($file_name);
+                        $video_location = $common->getParam('DOCUMENT_ROOT', 'server').$video_web;
+                        $tgt = $common->getParam('DOCUMENT_ROOT', 'server').DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'encoding'.DIRECTORY_SEPARATOR.$file_name;
+                        if (!@move_uploaded_file($file['tmp_name'], $tgt)) {
+                            $resp['message'] = 'File could not be uploaded';
+                            $resp['error'] = true;
+                        } else {
+                            // generate a thumbnail based on the provided time \\
+                            $frames = exec('/usr/local/bin/ffmpeg -nostats -i \''.$tgt.'\' -vcodec copy -f rawvideo -y /dev/null 2>&1 | grep frame | awk \'{split($0,a,"fps")}END{print a[1]}\' | sed \'s/.*= *//\'');
+                            $screens = floor($frames / 40);
+                            exec('/usr/local/bin/ffmpeg -i \''.$tgt.'\' -frames 1 -q:v 1 -vf "select=not(mod(n\,'.$screens.')),scale=\'if(gt(a,5/3),trunc('.$width.'/2)*2,-2)\':\'if(gt(a,5/3),-2,trunc('.$height.'/2)*2)\',tile=40x1" \''.$video_location.'.png\'');
+
+                            // if its a video, lets encode it \\
+                            // make mp4 \\
+                            exec('/usr/local/bin/ffmpeg -i \''.$tgt.'\' -codec:v libx264 -profile:v high -preset slow -b:v 500k -maxrate 500k -bufsize 1000k -vf scale="\'if(gt(a,5/3),trunc('.$width.'/2)*2,-2)\':\'if(gt(a,5/3),-2,trunc('.$height.'/2)*2)\'" -threads 0 -strict -2 -codec:a aac -b:a 128k \''.$video_location.'.mp4\' > /dev/null 2>/dev/null &');
+                            
+                            // make webm \\
+                            exec('/usr/local/bin/ffmpeg -i \''.$tgt.'\' -vcodec libvpx -qscale 6 -acodec libvorbis -ab 128k -vf scale="\'if(gt(a,5/3),trunc('.$width.'/2)*2,-2)\':\'if(gt(a,5/3),-2,trunc('.$height.'/2)*2)\'" \''.$video_location.'.webm\' > /dev/null 2>/dev/null &');
+                            // make ogg \\
+                            exec('/usr/local/bin/ffmpeg -i \''.$tgt.'\' -vcodec libtheora -qscale 6 -acodec libvorbis -ab 128k -vf scale="\'if(gt(a,5/3),trunc('.$width.'/2)*2,-2)\':\'if(gt(a,5/3),-2,trunc('.$height.'/2)*2)\'" \''.$video_location.'.ogg\' > /dev/null 2>/dev/null &');
+                            $resp['encoding'] = true;
+                            $resp['error'] = false;
+                            $resp['filename'] = $file_name;
+                        }
                     }
                 } else {
                     $resp['error'] = true;
-                    $resp['message'] = 'Invalid image';
+                    $resp['message'] = 'Invalid file';
                 }
                 if ($resp['error']) {
+//                    var_dump($resp);
                     print_r('error');
                 } else {
-                    print_r(DIRECTORY_SEPARATOR.'img'.DIRECTORY_SEPARATOR.$target_path.$file_name);
+                    if ($video) {
+                        $previewSize = [];
+                        if (file_exists($video_location.'.png')) {
+                            $preview = getimagesize($video_location.'.png');
+                            $previewSize = ['width'=>$preview[0], 'height'=>$preview[1], 'single_width'=>$width, 'single_height'=>$height];
+                        }
+                        print_r(json_encode(['type'=>'video', 'thumb'=>$video_web.'.png', 'size'=>$previewSize, 'filename'=>$video_web]));
+                    } else {
+                        print_r(json_encode(['type'=>'image', 'thumb'=>DIRECTORY_SEPARATOR.'img'.DIRECTORY_SEPARATOR.$target_path.$file_name, 'filename'=>DIRECTORY_SEPARATOR.'img'.DIRECTORY_SEPARATOR.$target_path.$file_name]));
+                    }
                 }
             } else {
                 print_r(call_user_func_array(get_called_class().'::moveFile', array($file, $dir)));
             }
         }
+    }
+    static function isVideo()
+    {
+        
     }
     static function moveFile($file, $tgtDir=null) {
         global $common;

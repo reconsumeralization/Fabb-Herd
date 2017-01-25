@@ -22,14 +22,20 @@ $info = \admin\cattle::edit($params[0]);
     <h4>Icon: <input type="file" name="icon" value="<?php echo $info->icon; ?>" /><?php echo (!empty($info->icon)) ? '<img src="'.$info->icon.'" width="100" height="100" />' : ''; ?></h4>
     <h4>Sire: <input type="text" name="sire" value="<?php echo $info->sire; ?>" /></h4>
     <h4>Dam: <input type="text" name="dam" value="<?php echo $info->dam; ?>" /></h4>
-    <sub>Video example link: <?php echo htmlentities('<iframe width="420" height="315" src="//www.youtube.com/embed/ARqOIqJ9kbo?rel=0&start=27&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>'); ?></sub>
-    <h4>Video: <textarea name="video"><?php echo $info->video; ?></textarea></h4>
     <h4>Link: <input type="text" name="link" value="" /></h4>
     <h4>Images</h4>
     <ul class="image-list">
         <?php
         foreach ($info->images as $id=>$img) {
-            echo '<li><input type="hidden" name="images[]" value="'.$img.'" /><img data-dz-thumbnail alt="'.basename($img).'" width="100" height="100" src="'.$img.'" /><div class="remove"><span>✘ - remove</span></div></li>';
+            $imgsrc = explode(':', $img);
+            if ($imgsrc[0] === 'image') {
+                $src = $imgsrc[1];
+            } else if ($imgsrc[0] === 'video') {
+                $src = $imgsrc[1].'.png';
+            } else {
+                $src = $imgsrc[0];
+            }
+            echo '<li style="width: 140px; height: 100px; background-image:url(\''.$src.'\'); background-size: cover; background-position: center; margin-bottom: 20px;"><input type="hidden" name="images[]" value="'.$img.'" /><img data-dz-thumbnail width="140" height="100" /><div class="remove"><span>✘ - remove</span></div></li>';
         }
         ?>
     </ul>
@@ -48,13 +54,16 @@ $info = \admin\cattle::edit($params[0]);
         content_css: "/css/main.css"
     });
     var dropZone = new Dropzone('div#fileDrop', {
+        maxFilesize: 1024,
         url: '/admin/upload',
         headers: {"folder": "cattle/gallery", "size": "1280x720", "thumb": "140x100"}
     });
     dropZone.on('success', function(file, filename) {
         if (file.status === 'success') {
+            var json = $.parseJSON(filename)
             var clone = $(file.previewElement).clone();
-            var html = '<li><input type="hidden" name="images[]" value="'+filename+'" />'+$(".dz-details img", clone).prop('outerHTML')+'<div class="remove"><span>✘ - remove</span></div></li>';
+            $(".dz-details img", clone).prop({'width':140, 'height': 100});
+            var html = '<li style="width: 140px; height: 100px; background-image:url(\''+json['thumb']+'\'); background-size: cover; background-position: center; margin-bottom: 20px;"><input type="hidden" name="images[]" value="'+json['type']+':'+json['filename']+'" />'+$(".dz-details img", clone).prop('outerHTML')+'<div class="remove"><span>✘ - remove</span></div></li>';
             $(".image-list").append(html);
             setTimeout(function() {
                 $(file.previewElement).empty().remove();
