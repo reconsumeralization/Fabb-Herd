@@ -17,7 +17,7 @@ class upload {
     static $image = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
     static function upload() {
         global $common;
-        $allowed = self::$video+self::$image;
+        $allowed = array_merge(self::$video, self::$image);
         if (!is_null($common->getParam('file', 'file'))) {
             $file = $common->getParam('file', 'file');
             $dir = $common->getParam('HTTP_FOLDER', 'server');
@@ -80,19 +80,32 @@ class upload {
                             // generate a thumbnail based on the provided time \\
                             $frames = exec('/usr/local/bin/ffmpeg -nostats -i \''.$tgt.'\' -vcodec copy -f rawvideo -y /dev/null 2>&1 | grep frame | awk \'{split($0,a,"fps")}END{print a[1]}\' | sed \'s/.*= *//\'');
                             $screens = floor($frames / 40);
-                            exec('/usr/local/bin/ffmpeg -i \''.$tgt.'\' -frames 1 -q:v 1 -vf "select=not(mod(n\,'.$screens.')),scale=\'if(gt(a,5/3),trunc('.$width.'/2)*2,-2)\':\'if(gt(a,5/3),-2,trunc('.$height.'/2)*2)\',tile=40x1" \''.$video_location.'.png\'');
+                            exec('/usr/local/bin/ffmpeg -i \''.$tgt.'\' -ss 00:00:10.00 -vframes 1 \''.$video_location.'.png\'');
+                            $finfo = new \finfo(FILEINFO_MIME_TYPE);
+                            $fmime = $finfo->file($video_location.'.png');
+                            $posterResource = self::createImageResource($file_name.'.png', $video_location.'.png', $fmime);
+                            if ($posterResource['img']) {
+                                $posterResized = self::resizeImage($tW, $tH, $posterResource['img'], imagesx($posterResource['img']), imagesy($posterResource['img']));
+                                exec('/usr/local/bin/ffmpeg -i \''.$tgt.'\' -frames 1 -q:v 1 -vf "select=not(mod(n\,'.$screens.')),scale=-1:'.imagesy($posterResized).',tile=40x1" \''.$video_location.'_frames.png\'');
+                                $resp['error'] = (self::saveImage($posterResized, $video_location.'.png', 50)) ? false : true;
+                            } else {
+                                $resp['error'] = true;
+                            }
+                            if (!$resp['error']) {
+                                // if its a video, lets encode it \\
+                                // make mp4 \\
+                                exec('/usr/local/bin/ffmpeg -i \''.$tgt.'\' -codec:v libx264 -profile:v high -preset slow -b:v 500k -maxrate 500k -bufsize 1000k -vf scale="\'if(gt(a,5/3),trunc('.$width.'/2)*2,-2)\':\'if(gt(a,5/3),-2,trunc('.$height.'/2)*2)\'" -threads 0 -strict -2 -codec:a aac -b:a 128k \''.$video_location.'.mp4\' > /dev/null 2>/dev/null &');
 
-                            // if its a video, lets encode it \\
-                            // make mp4 \\
-                            exec('/usr/local/bin/ffmpeg -i \''.$tgt.'\' -codec:v libx264 -profile:v high -preset slow -b:v 500k -maxrate 500k -bufsize 1000k -vf scale="\'if(gt(a,5/3),trunc('.$width.'/2)*2,-2)\':\'if(gt(a,5/3),-2,trunc('.$height.'/2)*2)\'" -threads 0 -strict -2 -codec:a aac -b:a 128k \''.$video_location.'.mp4\' > /dev/null 2>/dev/null &');
-                            
-                            // make webm \\
-                            exec('/usr/local/bin/ffmpeg -i \''.$tgt.'\' -vcodec libvpx -qscale 6 -acodec libvorbis -ab 128k -vf scale="\'if(gt(a,5/3),trunc('.$width.'/2)*2,-2)\':\'if(gt(a,5/3),-2,trunc('.$height.'/2)*2)\'" \''.$video_location.'.webm\' > /dev/null 2>/dev/null &');
-                            // make ogg \\
-                            exec('/usr/local/bin/ffmpeg -i \''.$tgt.'\' -vcodec libtheora -qscale 6 -acodec libvorbis -ab 128k -vf scale="\'if(gt(a,5/3),trunc('.$width.'/2)*2,-2)\':\'if(gt(a,5/3),-2,trunc('.$height.'/2)*2)\'" \''.$video_location.'.ogg\' > /dev/null 2>/dev/null &');
-                            $resp['encoding'] = true;
-                            $resp['error'] = false;
-                            $resp['filename'] = $file_name;
+                                // make webm \\
+                                exec('/usr/local/bin/ffmpeg -i \''.$tgt.'\' -vcodec libvpx -qscale 6 -acodec libvorbis -ab 128k -vf scale="\'if(gt(a,5/3),trunc('.$width.'/2)*2,-2)\':\'if(gt(a,5/3),-2,trunc('.$height.'/2)*2)\'" \''.$video_location.'.webm\' > /dev/null 2>/dev/null &');
+                                // make ogg \\
+                                exec('/usr/local/bin/ffmpeg -i \''.$tgt.'\' -vcodec libtheora -qscale 6 -acodec libvorbis -ab 128k -vf scale="\'if(gt(a,5/3),trunc('.$width.'/2)*2,-2)\':\'if(gt(a,5/3),-2,trunc('.$height.'/2)*2)\'" \''.$video_location.'.ogg\' > /dev/null 2>/dev/null &');
+                                $resp['encoding'] = true;
+                                $resp['error'] = false;
+                                $resp['filename'] = $file_name;
+                            } else {
+                                $resp['message'] = 'Poster could not be generated';
+                            }
                         }
                     }
                 } else {

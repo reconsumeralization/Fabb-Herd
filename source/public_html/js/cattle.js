@@ -1,4 +1,4 @@
-var preloaded = [], preloadlist = [], curDesc = '', prevDesc = '', prev = null, next = null, curInd = -1, curCattle = '', curImg = '';
+var preloaded = [], preloadlist = [], curDesc = '', prevDesc = '', prev = null, next = null, curInd = -1, curCattle = '', curImg;
 $(function() {
     // show the first one \\
     $(".cattle-list .cattle-item").click(function() {
@@ -46,7 +46,35 @@ function displayCattle(el) {
 function displayThumbs(images, imgL, catInd) {
     var first = true;
     for (var x = 0; x < imgL; x++) {
-        $("h1", "#cattle-header").append('<img id="img-'+x+'" src="'+$(images[x]).data('src').replace('/img/', '/thumbs/')+'" data-src="'+$(images[x]).data('src')+'" />');
+        var thumb = $(images[x]).data('src'),
+            video, frames;
+        if (thumb.substr(0, 6) === 'video:') {
+            // this is a video \\
+            video = thumb.substr(6);
+            thumb = video+'.png';
+            frames = video+'_frames.png';
+            var thumbImg = new Image();
+            thumbImg.src = thumb;
+            var tmpImg = new Image();
+            tmpImg.src = frames;
+            $("h1", "#cattle-header").append('<img id="img-'+x+'" width="'+thumbImg.width+'" height="'+thumbImg.height+'" style="background-image: url(\''+thumb+'\');" data-thumb="'+thumb+'" data-src="'+$(images[x]).data('src')+'" data-frames="'+frames+'" />');
+            
+            var thumbAnim;
+            $('#img-'+x, "#cattle-header").hover(function() {
+                var thumbW = thumbImg.width;
+                $(this).css({'background-image': 'url(\''+$(this).data('frames')+'\')'});
+                var $this = $(this);
+                thumbAnim = setInterval(function() {
+                    $this.css({'background-position-x': '-='+thumbW+'px'});
+                }, 300);
+            }, function() {
+                $(this).css({'background-image': 'url(\''+$(this).data('thumb')+'\')', 'background-position-x': '0'});
+                clearInterval(thumbAnim);
+            });
+        } else {
+            thumb = thumb.replace('/img/', '/thumbs/');
+            $("h1", "#cattle-header").append('<img id="img-'+x+'" src="'+thumb+'" data-src="'+$(images[x]).data('src')+'" />');
+        }
         if (first) {
             first = false;
             displayImage($("#img-"+x), catInd);
@@ -55,15 +83,16 @@ function displayThumbs(images, imgL, catInd) {
 }
 function displayImage(src, catInd) {
     var source = src.data('src');
-    if (preloaded.indexOf(source) === -1) {
-        preloadImg(source, false);
+    if (source.substr(0, 6) !== 'video:') {
+        if (preloaded.indexOf(source) === -1) {
+            preloadImg(source, false);
+        }
     }
     if (descVisible()) {
-        hideDesc(false, changeImg, source, catInd);
+        hideDesc(false, changeImg, source, catInd, src);
     } else {
-        changeImg(source, catInd);
+        changeImg(source, catInd, src);
     }
-    curImg = src;
 }
 function descVisible() {
     if ($(".cattle-details", "#cattle-header").length === 0) {
@@ -71,44 +100,82 @@ function descVisible() {
     }
     return !($(".cattle-details", "#cattle-header").hasClass('hide'));
 }
-function hideDesc(force, fn, source, catInd) {
+function hideDesc(force, fn, source, catInd, src) {
     if (force || (curDesc !== prevDesc)) {
         $(".cattle-details", "#cattle-header").addClass('hide').one('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function() {
             if ($(this).hasClass('hide')) {
-                fn(source, catInd);
+                fn(source, catInd, src);
             }
         });
     } else {
-        fn(source, catInd);
+        fn(source, catInd, src);
     }
 }
-function changeImg(source, catInd) {
+function changeImg(source, catInd, src) {
     var headH = $("#header").height();
-    $("> img:first", "#cattle-header").fadeOut(function() {
-        $(this).prop('src', source);
-        if ($(this).width() > $(window).width()) {
-            $(this).css('width', '100%');
-            $(this).css('height', 'auto');
-        }
-        if ($(this).height() > $(window).height()-(headH*2)) {
-            $(this).css('height', $(window).height()-headH);
-            $(this).css('width', 'auto');
-            $(".hero").css({'border-bottom': '1px solid #0d6506'});
+    if ($("> #slideshow_video_player", "#cattle-header").length > 0) {
+        $("> #slideshow_video_player", "#cattle-header").fadeOut(function() {
+            loadMedia.apply(this, [source, catInd, headH]);
+            curImg = src;
+        });
+    } else {
+        $("> img:first", "#cattle-header").fadeOut(function() {
+            loadMedia.apply(this, [source, catInd, headH]);
+            curImg = src;
+        });
+    }
+}
+function loadMedia(source, catInd, headH) {
+    var $this = $(this);
+    if (typeof curImg === 'undefined' || curImg.data('src') !== source) {
+        if (source.substr(0, 6) === 'video:') {
+            $(this).after('<video autoplay loop style="display:none;" id="slideshow_video_player" />');
+            $this = $(this).next('video');
+            $(this).empty().remove();
+            $("#slideshow_video_player").bind("loadedmetadata", function () {
+                var width = this.videoWidth,
+                    height = this.videoHeight;
+                $(this).width(width);
+                $(this).height(height);
+                prepImg.apply($this, [source, catInd, headH]);
+            });
+            $this.append($('<source src="'+source.substr(6)+'.mp4" type="video/mp4"><source src="'+source.substr(6)+'.ogg" type="video/ogg"><source src="'+source.substr(6)+'.webm" type="video/webm">'));
         } else {
-            $(".hero").css({'border-bottom': 'none'});
+            if ($(this).is('#slideshow_video_player')) {
+                $(this).after('<img />');
+                $this = $(this).next('img');
+                $(this).empty().remove();
+            }
+            $this.prop('src', source);
+            prepImg.apply($this, [source, catInd, headH]);
         }
-        $(this).css('margin-top', headH).addClass('slideshow').fadeIn(function() {displayDesc(source, catInd);});
-        if (!$(".cattle-details", "#cattle-header").data('width')) {
-            $(".cattle-details", "#cattle-header").data('width', $(".cattle-details", "#cattle-header").width());
-        }
-        if ($(this).width() < $(document).width() && $(document).width()-$(this).width()-20 > 160) {
-            $(".cattle-details", "#cattle-header").animate({'width': $(document).width()-$(this).width()-20});
-        } else if ($(".cattle-details", "#cattle-header").data('width')) {
-            $(".cattle-details", "#cattle-header").animate({'width': $(".cattle-details", "#cattle-header").data('width')});
-        }
-        detectWidth();
-        window.scrollTo(0, 0);
+    }
+}
+function prepImg(source, catInd, headH) {
+    if ($(this).width() > $(window).width()) {
+        $(this).css('width', '100%');
+        $(this).css('height', 'auto');
+    }
+    if ($(this).height() > $(window).height()-(headH*2)) {
+        $(this).css('height', $(window).height()-headH);
+        $(this).css('width', 'auto');
+        $(".hero").css({'border-bottom': '1px solid #0d6506'});
+    } else {
+        $(".hero").css({'border-bottom': 'none'});
+    }
+    $(this).css('margin-top', headH).addClass('slideshow').fadeIn(function() {
+        displayDesc(source, catInd);
     });
+    if (!$(".cattle-details", "#cattle-header").data('width')) {
+        $(".cattle-details", "#cattle-header").data('width', $(".cattle-details", "#cattle-header").width());
+    }
+    if ($(this).width() < $(document).width() && $(document).width()-$(this).width()-20 > 160) {
+        $(".cattle-details", "#cattle-header").animate({'width': $(document).width()-$(this).width()-20});
+    } else if ($(".cattle-details", "#cattle-header").data('width')) {
+        $(".cattle-details", "#cattle-header").animate({'width': $(".cattle-details", "#cattle-header").data('width')});
+    }
+    detectWidth();
+    window.scrollTo(0, 0);
 }
 function preloadImgIterate(list) {
     preloadImg(list[0], true, 0, list);

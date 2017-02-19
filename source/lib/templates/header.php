@@ -33,8 +33,6 @@ if (empty($section)) {
         <script type="text/javascript" src="/js/<?php echo $page[0]; ?>.js"></script>
         <?php
         }
-        ?>
-        <?php
         if ($page[0] === 'contact') {
         ?>
         <script type='application/ld+json'> 
