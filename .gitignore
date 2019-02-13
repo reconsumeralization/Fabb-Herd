@@ -2,3 +2,4 @@ private.xml
 config.properties
 *.DS_Store
 meta
+web/vendor
