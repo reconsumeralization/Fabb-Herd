@@ -1,7 +1,8 @@
 repo_name: reconsumeralization/Fabb-Herd
 report_id: fa52ecbae4e5c3258c13584dbfddc74c
+version: 0.1
 repo_type: Public
-timestamp: '2023-11-09T16:25:27+00:00'
+timestamp: '2024-01-04T15:04:06+00:00'
 requested_by: smgdesign
 provider: github
 branch: master
@@ -15,6 +16,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Languages
   image_url: https://img.stackshare.io/service/6727/css.png
+  detection_source_url: https://github.com/reconsumeralization/Fabb-Herd
   detection_source: Repo Metadata
 - name: Hack
   description: A programming language for HHVM that interoperates seamlessly with
@@ -25,6 +27,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Languages
   image_url: https://img.stackshare.io/service/1208/download.png
+  detection_source_url: https://github.com/reconsumeralization/Fabb-Herd
   detection_source: Repo Metadata
 - name: Java
   description: A concurrent, class-based, object-oriented, language specifically designed
@@ -35,6 +38,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Languages
   image_url: https://img.stackshare.io/service/995/K85ZWV2F.png
+  detection_source_url: https://github.com/reconsumeralization/Fabb-Herd
   detection_source: Repo Metadata
 - name: JavaScript
   description: Lightweight, interpreted, object-oriented language with first-class
@@ -45,6 +49,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Languages
   image_url: https://img.stackshare.io/service/1209/javascript.jpeg
+  detection_source_url: https://github.com/reconsumeralization/Fabb-Herd
   detection_source: Repo Metadata
 - name: PHP
   description: A popular general-purpose scripting language that is especially suited
@@ -55,6 +60,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Languages
   image_url: https://img.stackshare.io/service/991/hwUcGZ41_400x400.jpg
+  detection_source_url: https://github.com/reconsumeralization/Fabb-Herd
   detection_source: Repo Metadata
 - name: SQL
   description: It is a domain-specific language used in programming
@@ -64,7 +70,8 @@ tools:
   category: Languages & Frameworks
   sub_category: Languages
   image_url: https://img.stackshare.io/service/2271/default_068d33483bba6b81ee13fbd4dc7aab9780896a54.png
-  detection_source: docs/sql/tbl_posts.sql
+  detection_source_url: https://github.com/reconsumeralization/Fabb-Herd/blob/master/docs/fabbherd_2016-02-09.sql
+  detection_source: docs/fabbherd_2016-02-09.sql
   last_updated_by: Richard Wilson
   last_updated_on: 2016-02-11 15:40:58.000000000 Z
 - name: Git
@@ -75,4 +82,5 @@ tools:
   category: Build, Test, Deploy
   sub_category: Version Control System
   image_url: https://img.stackshare.io/service/1046/git.png
+  detection_source_url: https://github.com/reconsumeralization/Fabb-Herd
   detection_source: Repo Metadata
